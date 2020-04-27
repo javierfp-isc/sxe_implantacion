@@ -1,0 +1,26 @@
+ 
+  - name: ESCRIBIR LOG
+    shell: |
+     tee -a {{ log }} << END
+     ### COMANDO: "{{ item.cmd }}"
+
+     ----->SALIDA: {{ item.stdout }}
+
+     ----->CÓDIGO SALIDA: {{ item.rc }}
+
+     END
+     if [ "{{ item.rc }}" -gt 0 ];then echo "----->ERROR! {{ item.stderr }}" >> "{{ log }}";fi
+     if [ "{{ item.rc }}" -eq 0 ]; then echo "----->PUNTUACIÓN: {{ item.item.1.puntuacion }}" >> "{{ log }}";fi
+    loop: "{{ testresult.results }}"
+    ignore_errors: yes
+
+  - name: ESCRIBIR NOTA LOG
+    shell: |
+     tee -a {{ log }} << END
+
+     ### NOTA DE LA TAREA: {{ nota }}
+     END
+    
+
+
+ 

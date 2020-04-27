@@ -1,0 +1,7 @@
+ #Variables genéricas (NO TOCAR) 
+ practica: practica_0
+ start: docker start {{ practica }}
+ stop: docker stop {{ practica }}
+ exec: docker exec {{ practica }}
+ log: log/report.log
+ nota: 0

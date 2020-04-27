@@ -1,0 +1,88 @@
+
+2020-04-24 21:34:42,820 p=7205 u=javierfp n=ansible | changed: [localhost]
+2020-04-24 21:34:42,828 p=7205 u=javierfp n=ansible | TASK [RECUPERAR commands.yaml DEL REMOTO] ************************************************************************************************************************************************
+2020-04-24 21:34:42,862 p=7205 u=javierfp n=ansible | skipping: [localhost]
+2020-04-24 21:34:42,871 p=7205 u=javierfp n=ansible | TASK [INCLUIR VARIABLES variables.yaml] **************************************************************************************************************************************************
+2020-04-24 21:34:42,883 p=7205 u=javierfp n=ansible | ok: [localhost]
+2020-04-24 21:34:42,892 p=7205 u=javierfp n=ansible | TASK [INCLUIR VARIABLES gitlab.yaml] *****************************************************************************************************************************************************
+2020-04-24 21:34:42,903 p=7205 u=javierfp n=ansible | ok: [localhost]
+2020-04-24 21:34:42,913 p=7205 u=javierfp n=ansible | TASK [INCLUIR VARIABLES alumno.yaml] *****************************************************************************************************************************************************
+2020-04-24 21:34:42,925 p=7205 u=javierfp n=ansible | ok: [localhost]
+2020-04-24 21:34:42,935 p=7205 u=javierfp n=ansible | TASK [INCLUIR COMANDOS comandos.yaml] ****************************************************************************************************************************************************
+2020-04-24 21:34:42,946 p=7205 u=javierfp n=ansible | ok: [localhost]
+2020-04-24 21:34:42,956 p=7205 u=javierfp n=ansible | TASK [ARRANCAR CONTAINERS] ***************************************************************************************************************************************************************
+2020-04-24 21:34:43,156 p=7205 u=javierfp n=ansible | changed: [localhost] => (item=None)
+2020-04-24 21:34:43,311 p=7205 u=javierfp n=ansible | changed: [localhost] => (item=None)
+2020-04-24 21:34:43,320 p=7205 u=javierfp n=ansible | TASK [EJECUTAR COMANDOS TEST] ************************************************************************************************************************************************************
+2020-04-24 21:34:43,338 p=7205 u=javierfp n=ansible | included: /home/javierfp/GITLAB/REPOS/practicas/tests/tasks/tasks.yaml for localhost
+2020-04-24 21:34:43,347 p=7205 u=javierfp n=ansible | TASK [EJECUTAR COMANDOS] *****************************************************************************************************************************************************************
+2020-04-24 21:34:43,699 p=7205 u=javierfp n=ansible | ok: [localhost] => (item=EJECUTANDO docker exec practica_0_base_1 service apache2 status | grep running)
+2020-04-24 21:34:43,954 p=7205 u=javierfp n=ansible | ok: [localhost] => (item=EJECUTANDO docker exec practica_0_base_1 ls -ld /etc | grep rwxr-xr)
+2020-04-24 21:34:44,214 p=7205 u=javierfp n=ansible | failed: [localhost] (item=EJECUTANDO docker exec practica_0_base_1 service mysql status | grep running) => {"ansible_loop_var": "item", "changed": false, "cmd": "docker exec practica_0_base_1 service mysql status | grep running", "delta": "0:00:00.121519", "end": "2020-04-24 21:34:44.192417", "item": [{"container": "base_1"}, {"comando": "service mysql status", "nombre": "mysql running", "puntuacion": 3, "resultado": "running"}], "msg": "non-zero return code", "rc": 1, "start": "2020-04-24 21:34:44.070898", "stderr": "mysql: unrecognized service", "stderr_lines": ["mysql: unrecognized service"], "stdout": "", "stdout_lines": []}
+2020-04-24 21:34:44,497 p=7205 u=javierfp n=ansible | ok: [localhost] => (item=EJECUTANDO docker exec practica_0_base_1 whoami | grep root)
+2020-04-24 21:34:44,508 p=7205 u=javierfp n=ansible | TASK [debug] *****************************************************************************************************************************************************************************
+2020-04-24 21:34:44,522 p=7205 u=javierfp n=ansible | ok: [localhost] => {
+    "msg": "LO SIENTO!. No has superado todos los test"
+}
+2020-04-24 21:34:44,531 p=7205 u=javierfp n=ansible | TASK [include_tasks] *********************************************************************************************************************************************************************
+2020-04-24 21:34:44,551 p=7205 u=javierfp n=ansible | included: /home/javierfp/GITLAB/REPOS/practicas/tests/tasks/nota.yaml for localhost
+2020-04-24 21:34:44,561 p=7205 u=javierfp n=ansible | TASK [CALCULAR NOTA] *********************************************************************************************************************************************************************
+2020-04-24 21:34:44,602 p=7205 u=javierfp n=ansible | ok: [localhost] => (item=None)
+2020-04-24 21:34:44,607 p=7205 u=javierfp n=ansible | ok: [localhost] => (item=None)
+2020-04-24 21:34:44,611 p=7205 u=javierfp n=ansible | skipping: [localhost] => (item=None) 
+2020-04-24 21:34:44,616 p=7205 u=javierfp n=ansible | ok: [localhost] => (item=None)
+2020-04-24 21:34:44,625 p=7205 u=javierfp n=ansible | TASK [MOSTRAR NOTA] **********************************************************************************************************************************************************************
+2020-04-24 21:34:44,659 p=7205 u=javierfp n=ansible | ok: [localhost] => {
+    "msg": "7"
+}
+2020-04-24 21:34:44,667 p=7205 u=javierfp n=ansible | TASK [ESCRIBIR LOG] **********************************************************************************************************************************************************************
+2020-04-24 21:34:44,688 p=7205 u=javierfp n=ansible | included: /home/javierfp/GITLAB/REPOS/practicas/tests/tasks/log.yaml for localhost
+2020-04-24 21:34:44,703 p=7205 u=javierfp n=ansible | TASK [ESCRIBIR LOG] **********************************************************************************************************************************************************************
+2020-04-24 21:34:44,893 p=7205 u=javierfp n=ansible | changed: [localhost] => (item=None)
+2020-04-24 21:34:45,030 p=7205 u=javierfp n=ansible | changed: [localhost] => (item=None)
+2020-04-24 21:34:45,166 p=7205 u=javierfp n=ansible | changed: [localhost] => (item=None)
+2020-04-24 21:34:45,305 p=7205 u=javierfp n=ansible | changed: [localhost] => (item=None)
+2020-04-24 21:34:45,314 p=7205 u=javierfp n=ansible | TASK [ESCRIBIR NOTA LOG] *****************************************************************************************************************************************************************
+2020-04-24 21:34:45,495 p=7205 u=javierfp n=ansible | changed: [localhost]
+2020-04-24 21:34:45,503 p=7205 u=javierfp n=ansible | TASK [ENTREGAR TAREA] ********************************************************************************************************************************************************************
+2020-04-24 21:34:45,543 p=7205 u=javierfp n=ansible | skipping: [localhost]
+2020-04-24 21:34:45,551 p=7205 u=javierfp n=ansible | TASK [FORZAR ENTREGA DE TAREA] ***********************************************************************************************************************************************************
+2020-04-24 21:34:45,608 p=7205 u=javierfp n=ansible | included: /home/javierfp/GITLAB/REPOS/practicas/tests/tasks/entregar.yaml for localhost
+2020-04-24 21:34:45,617 p=7205 u=javierfp n=ansible | TASK [ENTREGAR TAREA] ********************************************************************************************************************************************************************
+2020-04-24 21:34:45,659 p=7205 u=javierfp n=ansible | ok: [localhost] => {
+    "msg": "Se va a crear incidencia con el resultado de la tarea"
+}
+2020-04-24 21:34:45,668 p=7205 u=javierfp n=ansible | TASK [CREAR INCIDENCIA EN GITLAB] ********************************************************************************************************************************************************
+2020-04-24 21:34:46,307 p=7205 u=javierfp n=ansible | ok: [localhost] => (item=
+### COMANDO: "docker exec practica_0_base_1 service apache2 status | grep running"
+
+----->SALIDA: apache2 is running.
+
+----->CÓDIGO SALIDA: 0
+
+----->PUNTUACIÓN: 2
+### COMANDO: "docker exec practica_0_base_1 ls -ld /etc | grep rwxr-xr"
+
+----->SALIDA: drwxr-xr-x 1 root root 4096 Apr 22 18:25 /etc
+
+----->CÓDIGO SALIDA: 0
+
+----->PUNTUACIÓN: 2
+### COMANDO: "docker exec practica_0_base_1 service mysql status | grep running"
+
+----->SALIDA: 
+
+----->CÓDIGO SALIDA: 1
+
+----->ERROR! mysql: unrecognized service
+### COMANDO: "docker exec practica_0_base_1 whoami | grep root"
+
+----->SALIDA: root
+
+----->CÓDIGO SALIDA: 0
+
+----->PUNTUACIÓN: 3
+
+### NOTA DE LA TAREA: 7)
+2020-04-24 21:34:46,310 p=7205 u=javierfp n=ansible | PLAY RECAP *******************************************************************************************************************************************************************************
+2020-04-24 21:34:46,310 p=7205 u=javierfp n=ansible | localhost                  : ok=18   changed=4    unreachable=0    failed=0    skipped=2    rescued=1    ignored=0   

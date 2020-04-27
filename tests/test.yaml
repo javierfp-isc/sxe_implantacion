@@ -1,0 +1,71 @@
+---
+- hosts: localhost
+  remote_user: root
+   
+  #Tareas previas
+  pre_tasks:
+  - name: LIMPIAR LOGS
+    shell: |
+     echo "" > log/test.log
+     echo "" > log/report.log
+  - name: RECUPERAR commands.yaml DEL REMOTO
+    shell: |
+     git -C .. rm -f tests/vars/comandos.yaml
+     git -C .. checkout origin/master tests/vars/comandos.yaml
+    when: nocheckout is undefined
+  - name: INCLUIR VARIABLES variables.yaml
+    include_vars:
+     file: vars/variables.yaml    
+  - name: INCLUIR VARIABLES gitlab.yaml
+    include_vars:
+     file: vars/gitlab.yaml
+  - name: INCLUIR VARIABLES alumno.yaml
+    include_vars:
+     file: vars/alumno.yaml
+  - name: INCLUIR COMANDOS comandos.yaml
+    include_vars:
+     file: vars/comandos.yaml     
+  - name: ARRANCAR CONTAINERS
+    shell: "{{ start }}_{{ item.container }}"
+    loop: "{{ comandos }}"
+    loop_control:
+     label: "ARRANCANDO {{ practica }}_{{ item.container }}"    
+  
+  #Ejecución de comandos de test
+  tasks:
+  - name:   
+    block:
+     - name : EJECUTAR COMANDOS TEST   
+       include_tasks: tasks/tasks.yaml
+     - name: TEST PASADOS
+       debug: msg="ENHORABUENA!. Has superado todos los test"
+    rescue:
+     - debug: msg="LO SIENTO!. No has superado todos los test"
+       register: testerror
+    no_log: False 
+  
+  post_tasks:
+  #Calcula la nota
+  - name:
+    include_tasks: tasks/nota.yaml
+  #Escribir report.log
+  - name: ESCRIBIR LOG
+    include_tasks: tasks/log.yaml
+  #Entregar tarea
+  - name: 
+    block:       
+     - name : ENTREGAR TAREA
+       include_tasks: tasks/entregar.yaml
+       #Cuando pasan todos los test anteriores se entrega
+       when: testerror is undefined
+    always:
+     - name : FORZAR ENTREGA DE TAREA
+       include_tasks: tasks/entregar.yaml
+       #Cuando se pase el parámetro force=yes se entrega la tarea
+       when: (testerror is defined) and (force is defined) and (force == 'yes')
+    when: (entregar is defined) and (entregar == 'yes')
+    no_log: False    
+    
+
+
+ 

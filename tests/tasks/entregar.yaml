@@ -1,0 +1,17 @@
+
+  #Tarea de entrega creando incidencia en gitlab  
+  - name: ENTREGAR TAREA
+    debug: msg="Se va a crear incidencia con el resultado de la tarea"
+  - name: CREAR INCIDENCIA EN GITLAB   
+    uri:    
+     url: "{{ gitlab_url }}/api/v4/projects/{{ gitlab_project_id }}/issues"
+     headers:
+      PRIVATE-TOKEN: "{{ gitlab_token }}"     
+     method:  POST
+     validate_certs: False
+     body: "title={{ nombre_alumno }}_{{ practica }}&description={{ item }}&labels={{ practica }}"
+    with_file:
+    - ../log/report.log
+    failed_when:
+     - '1 == 0'
+  

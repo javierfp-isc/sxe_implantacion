@@ -1,0 +1,31 @@
+
+### COMANDO: "docker exec practica_0_base_1 service apache2 status | grep running"
+
+----->SALIDA: apache2 is running.
+
+----->CÓDIGO SALIDA: 0
+
+----->PUNTUACIÓN: 2
+### COMANDO: "docker exec practica_0_base_1 ls -ld /etc | grep rwxr-xr"
+
+----->SALIDA: drwxr-xr-x 1 root root 4096 Apr 22 18:25 /etc
+
+----->CÓDIGO SALIDA: 0
+
+----->PUNTUACIÓN: 2
+### COMANDO: "docker exec practica_0_base_1 service mysql status | grep running"
+
+----->SALIDA: 
+
+----->CÓDIGO SALIDA: 1
+
+----->ERROR! mysql: unrecognized service
+### COMANDO: "docker exec practica_0_base_1 whoami | grep root"
+
+----->SALIDA: root
+
+----->CÓDIGO SALIDA: 0
+
+----->PUNTUACIÓN: 3
+
+### NOTA DE LA TAREA: 7

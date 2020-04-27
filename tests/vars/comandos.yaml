@@ -1,0 +1,22 @@
+#Comandos de test a ejecutar (NO TOCAR)
+comandos:
+ - container: "base_1"
+   comandos:
+   - nombre: apache running
+     comando: "service apache2 status"
+     resultado: "running"
+     puntuacion: 2
+   - nombre: /etc legible para todos
+     comando: "ls -ld /etc"
+     resultado: "rwxr-xr"
+     puntuacion: 2
+ - container: "base_1"
+   comandos:
+   - nombre: mysql running
+     comando: "service mysql status"
+     resultado: "running"
+     puntuacion: 3
+   - nombre: test whoami
+     comando: "whoami"
+     resultado: "root"
+     puntuacion: 3
