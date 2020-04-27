@@ -1,8 +1,5 @@
 #!/bin/bash
 
-#Sale si un comando termina con un valor de retorno diferente a 0
-set -e
-
 #Arrancamos servicios
 service ssh start
 service postgresql start
