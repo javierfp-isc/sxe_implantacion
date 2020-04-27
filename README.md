@@ -1,4 +1,4 @@
-# Entorno para ejecutar Odoo 13
+# Despliegue Odoo 13
 
 ## Objetivo
 
