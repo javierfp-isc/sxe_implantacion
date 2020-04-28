@@ -13,7 +13,7 @@ LABEL paquetes="vim, curl, wget, iputils-ping, net-tools, nano, openssh-server"
 LABEL acceso="usuario: root, password: abc123."
 
 #Copiamos el entrypoint.sh al container
-COPY entry_postgres.sh /usr/bin/entrypoint.sh
+COPY entrypoint.sh /usr/bin/entrypoint.sh
 
 #Damos permiso al entrypoint
 RUN set -x; \

@@ -13,7 +13,7 @@ LABEL paquetes="vim, git, curl, iputils-ping, net-tools, nano, wget, openssh-ser
 LABEL acceso="usuario: root, password: abc123."
 
 #Copiamos el entrypoint.sh al container
-COPY entry_odoo.sh /usr/bin/entrypoint.sh
+COPY entrypoint.sh /usr/bin/entrypoint.sh
 
 #Copiamos el script de odoo
 COPY odoo.sh /etc/init.d/odoo.sh
