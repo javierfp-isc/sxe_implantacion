@@ -22,9 +22,15 @@ Dentro del directorio **tests/vars** hay un archivo **alumno.yaml**, el cual con
 
 *NOTAD que al ser formato YAML la sintaxis es del tipo clave: valor*
 
-## Escenario
+## Escenarios
 
 El escenario es el conjunto de elementos necesarios para la realización de la práctica. Consistirá en un conjunto de contenedores docker, uno o más, con funciones bien establecidas y descritas en la práctica. Tendrás que realizar los pasos indicados en la práctica en ellos, es decir serán la base de trabajo.
+
+Este repositorio contiene 3 escenarios:
+
+- **odoo13_despliegue**: creación sencilla de 1 container para odoo
+- **odoo13_1container**: despliegue completo de odoo en 1 container
+- **odoo13_2container**: despliegue completo de odoo en 2 containers
 
 ### Creación del escenario de la práctica
 
@@ -38,7 +44,7 @@ por la misma ruta pero en vuestro directorio home, el cual tendrá la forma: /ho
 
 **/home/SANCLEMENTE/javierfp**
 
-Una vez realizado el cambio anterior, para crear el escenario de la práctica entramos en el directorio en el que se ubica el **docker-compose.yml** y dentro del mismo ejecutamos desde la terminal el comando:
+Una vez realizado el cambio anterior, para crear el escenario de la práctica entramos en el directorio del escenario (en el que se ubica el **docker-compose.yml**) y dentro del mismo ejecutamos desde la terminal el comando:
 
 `docker-compose up -d`
 
