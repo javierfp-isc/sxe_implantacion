@@ -1,0 +1,34 @@
+version: '2'
+services:
+#Service odoo
+ odoo:
+  build: ./odoo
+  depends_on:
+  - postgres
+  ports:
+  - "8069:8069"
+  #Cambiarlo para el home de cada usuario
+  volumes:
+  - /home/javierfp/odoo:/opt/odoo/src
+  - /home/javierfp/odoo/conf:/opt/odoo/conf
+  - /home/javierfp/odoo/log:/var/log/odoo
+  networks:
+   odoo:
+    ipv4_address: 192.168.199.13
+#Service postgres
+ postgres:
+  build: ./postgres
+  volumes:
+  - pg_data:/var/lib/postgresql/11/main
+  networks:
+   odoo:
+    ipv4_address: 192.168.199.10
+volumes:
+  pg_data:
+networks:
+  odoo:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 192.168.199.0/24
+         gateway: 192.168.199.1
