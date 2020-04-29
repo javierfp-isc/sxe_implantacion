@@ -34,6 +34,10 @@ RUN set -x; \
 RUN set -x; \
 	useradd -m -d /opt/$ODOOUSER -U -s /bin/bash $ODOOUSER && echo "$ODOOUSER:$ODOOPASS" | chpasswd
 
+#Escribe en /etc/hosts para que resuelva postgres al localhost
+RUN set -x; \
+	echo "127.0.0.1 postgres" >> /etc/hosts
+
 #Instalamos paquetes de utilidades
 RUN set -x; \
 	apt update && apt install -y vim git curl iputils-ping net-tools nano wget openssh-server 
