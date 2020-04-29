@@ -1,8 +1,8 @@
-# Despliegue Odoo 13
+# Despliegue Odoo
 
 ## Objetivo
 
-En esta práctica se va a desplegar Odoo 13 en un docker container
+En esta práctica se va a desplegar Odoo en un docker container
 
 ## Pasos previos a realizar
 
@@ -28,17 +28,17 @@ El escenario es el conjunto de elementos necesarios para la realización de la p
 
 Este repositorio contiene 3 escenarios:
 
-- **odoo13_despliegue**: creación sencilla de 1 container para odoo
-- **odoo13_1container**: despliegue completo de odoo en 1 container
-- **odoo13_2container**: despliegue completo de odoo en 2 containers
+- **odoo_despliegue**: creación sencilla de 1 container para odoo
+- **odoo_1container**: despliegue completo de odoo en 1 container
+- **odoo_2container**: despliegue completo de odoo en 2 containers
 
 ### Creación del escenario de la práctica
 
-Antes de crear el escenario hay que realizar un cambio en el archivo **docker-compose.yml **dentro del directorio del escenario de la práctica. En este caso dentro del directorio odoo13_despliegue.
+Antes de crear el escenario hay que realizar un cambio en el archivo **docker-compose.yml **dentro del directorio del escenario de la práctica. En este caso dentro de alguno de los directorios anteriores.
 
 En la sección *volumes* sustituís:
 
-**/home/javierfp/odoo13** 
+**/home/javierfp/odoo** 
 
 por la misma ruta pero en vuestro directorio home, el cual tendrá la forma: /home/SANCLEMENTE/<vuestro_usuario>. Por ejemplo si mi usuario es javierfp, la ruta sería:
 
@@ -74,15 +74,15 @@ donde nombre_servicio es el nombre del servicio dentro del archivo docker-compos
 
 `services:`
 
- `#Service odoo13 toma el Dockerfile de ./build/odoo13`
+ `#Service odoo toma el Dockerfile de ./build/odoo`
  
- `odoo13:`
+ `odoo:`
  
  etc.
  
  entonces podría acceder a ese container con el comando:
  
- `docker-compose exec odoo13 bash` 
+ `docker-compose exec odoo bash` 
  
 #### Acceder mediante docker exec -it
 
@@ -92,9 +92,9 @@ También podría acceder directamente el container usando el nombre del containe
 
 `docker ps`
 
-Si el nombre del container es **odoo13_despliegue_odoo13_1** accederemos a él con:
+Si el nombre del container es **odoo_despliegue_odoo_1** accederemos a él con:
 
-`docker exec -it odoo13_despliegue_odoo13_1 bash`
+`docker exec -it odoo_despliegue_odoo_1 bash`
 
 #### Acceder mediante ssh
 
