@@ -1,0 +1,24 @@
+#Comandos de test a ejecutar (NO TOCAR)
+comandos:
+ - escenario: "odoo_1container"
+   servicio: "odoo"
+   comandos:
+   - nombre: odoo running
+     comando: "service odoo.sh status"
+     resultado: "RUNNING"
+     puntuacion: 2
+   - nombre: addons_path correcto
+     comando: "cat /opt/odoo/conf/odoo.conf | grep addons_path"
+     resultado: "/opt/odoo/src/odoo"
+     puntuacion: 2 
+ - escenario: "odoo_2container"
+   servicio: "odoo"
+   comandos:
+   - nombre: odoo running
+     comando: "service odoo.sh status"
+     resultado: "RUNNING"
+     puntuacion: 2
+   - nombre: addons_path OCA modules
+     comando: "cat /opt/odoo/conf/odoo.conf | grep addons_path"
+     resultado: "/opt/odoo/src/server-ux"
+     puntuacion: 2

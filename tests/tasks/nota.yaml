@@ -1,0 +1,14 @@
+    
+  - name: CALCULAR NOTA
+    set_fact:
+     nota: "{{ (nota | int) + (item.item.1.puntuacion | int)  }}"
+    loop: "{{ testresult.results }}"
+    loop_control:
+     label: "PROCESANDO {{ item.item.1.comando }}"
+    when: item.failed == false
+
+  - name: MOSTRAR NOTA
+    debug: msg="{{ nota }}"
+    no_log: False
+
+ 
