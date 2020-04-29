@@ -34,10 +34,6 @@ RUN set -x; \
 RUN set -x; \
 	useradd -m -d /opt/$ODOOUSER -U -s /bin/bash $ODOOUSER && echo "$ODOOUSER:$ODOOPASS" | chpasswd
 
-#Escribe en /etc/hosts para que resuelva postgres al localhost
-RUN set -x; \
-	echo "127.0.0.1 postgres" >> /etc/hosts
-
 #Copiamos el odoo.conf al container
 COPY odoo.conf /opt/$ODOOUSER/odoo.conf
 
