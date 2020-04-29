@@ -37,13 +37,15 @@
   - name:   
     block:
      - name : EJECUTAR COMANDOS TEST   
-       include_tasks: tasks/tasks.yaml
+       include_tasks: tasks/commands.yaml
      - name: TEST PASADOS
        debug: msg="ENHORABUENA!. Has superado todos los test"
     rescue:
      - debug: msg="LO SIENTO!. No has superado todos los test"
        register: testerror
-    no_log: False 
+    no_log: False
+  - name : CUSTOM TASKS   
+    include_tasks: tasks/custom.yaml
   
   post_tasks:
   #Calcula la nota
