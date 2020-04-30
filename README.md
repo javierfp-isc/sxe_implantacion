@@ -112,7 +112,7 @@ O si queremos eliminar también las imágenes docker
 
 `docker-compose down --rmi all`
 
-Si en el escenario se ha creado algún volumen de datos asociado al container y queremos que éstos se borren, deberíamos también añadir la opción -v, por ejemplo para borrar containers, networks, imaǵenes y volúmenes usaríamos:
+Si en el escenario se ha creado algún volumen de datos asociado al container y queremos que éstos se borren, deberíamos también añadir la opción -v, por ejemplo para borrar containers, networks, imágenes y volúmenes usaríamos:
 
 `docker-compose down --rmi all -v`
 
