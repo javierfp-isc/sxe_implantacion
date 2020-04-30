@@ -34,7 +34,7 @@ Este repositorio contiene 3 escenarios:
 
 ### Creación del escenario de la práctica
 
-Antes de crear el escenario hay que realizar un cambio en el archivo **docker-compose.yml **dentro del directorio del escenario de la práctica. En este caso dentro de alguno de los directorios anteriores.
+Antes de crear el escenario hay que realizar un cambio en el archivo **docker-compose.yml **dentro del directorio de cada escenario de la práctica. En este caso dentro de los directorios anteriores.
 
 En la sección *volumes* sustituís:
 
