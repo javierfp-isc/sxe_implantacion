@@ -8,12 +8,12 @@
     shell: |
      echo "" > log/test.log
      echo "" > log/report.log
-  - name: RECUPERAR commands.yaml DEL REMOTO
-    shell: |
-     git -C .. rm -f tests/vars/comandos.yaml
-     git -C .. checkout origin/master tests/vars/comandos.yaml
-    when: nocheckout is undefined
-    ignore_errors: True
+  # - name: RECUPERAR commands.yaml DEL REMOTO
+  #   shell: |
+  #    git -C .. rm -f tests/vars/comandos.yaml
+  #    git -C .. checkout origin/master tests/vars/comandos.yaml
+  #   when: nocheckout is undefined
+  #   ignore_errors: True
   - name: INCLUIR VARIABLES variables.yaml
     include_vars:
      file: vars/variables.yaml    
@@ -34,6 +34,8 @@
   
   #Ejecución de comandos de test
   tasks:
+  - name : CUSTOM TASKS   
+    include_tasks: tasks/custom.yaml
   - name:   
     block:
      - name : EJECUTAR COMANDOS TEST   
@@ -44,8 +46,6 @@
      - debug: msg="LO SIENTO!. No has superado todos los test"
        register: testerror
     no_log: False
-  - name : CUSTOM TASKS   
-    include_tasks: tasks/custom.yaml
   
   post_tasks:
   #Calcula la nota
