@@ -2,7 +2,7 @@
 
 ## Objetivo
 
-En esta práctica se va a desplegar Odoo en un docker container
+En esta práctica se va a desplegar Odoo en uno o varios docker container
 
 ## Pasos previos a realizar
 
