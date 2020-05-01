@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
 #Service odoo
  odoo:
@@ -13,7 +13,7 @@ services:
   - /home/javierfp/odoo/conf:/opt/odoo/conf
   - /home/javierfp/odoo/log:/var/log/odoo
   networks:
-   odoo:
+   odoo_2container:
     ipv4_address: 192.168.199.13
 #Service postgres
  postgres:
@@ -21,14 +21,13 @@ services:
   volumes:
   - pg_data:/var/lib/postgresql/11/main
   networks:
-   odoo:
+   odoo_2container:
     ipv4_address: 192.168.199.10
 volumes:
   pg_data:
 networks:
-  odoo:
+  odoo_2container:
     driver: bridge
     ipam:
      config:
        - subnet: 192.168.199.0/24
-         gateway: 192.168.199.1

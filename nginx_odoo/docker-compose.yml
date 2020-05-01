@@ -1,0 +1,43 @@
+version: '3'
+services:
+#Service odoo toma el Dockerfile de ./build/odoo
+ odoo1:
+  build: ./odoo
+  ports:
+  - "8069:8069"
+  #Cambiarlo para el home de cada usuario
+  volumes:
+  - /home/javierfp/odoo:/opt/odoo/src
+  - /home/javierfp/odoo/conf:/opt/odoo/conf
+  - /home/javierfp/odoo/log:/var/log/odoo
+  networks:
+   nginx_odoo:
+    ipv4_address: 192.168.200.101
+ odoo2:
+  build: ./odoo
+  ports:
+  - "8070:8069"
+  #Cambiarlo para el home de cada usuario
+  volumes:
+  - /home/javierfp/odoo:/opt/odoo/src
+  - /home/javierfp/odoo/conf:/opt/odoo/conf
+  - /home/javierfp/odoo/log:/var/log/odoo
+  networks:
+   nginx_odoo:
+    ipv4_address: 192.168.200.102
+ nginx:
+  build: ./nginx
+  networks:
+   nginx_odoo:
+    ipv4_address: 192.168.200.100
+  volumes:
+  - nginx_conf:/etc/nginx
+networks:
+  nginx_odoo:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 192.168.200.0/24
+volumes:
+  nginx_conf:
+   

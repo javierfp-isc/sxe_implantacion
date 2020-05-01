@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
 #Service odoo toma el Dockerfile de ./build/odoo13
  odoo:
