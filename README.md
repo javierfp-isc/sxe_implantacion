@@ -31,7 +31,7 @@ Este repositorio contiene 3 escenarios:
 - **odoo_despliegue**: creación sencilla de 1 container para odoo
 - **odoo_1container**: despliegue completo de odoo en 1 container
 - **odoo_2container**: despliegue completo de odoo en 2 containers
-- *nginx_odoo*: despliegue de dos instancias de odoo pasando por proxy nginx
+- **nginx_odoo**: despliegue de dos instancias de odoo pasando por proxy nginx
 
 ### Creación del escenario de la práctica
 
