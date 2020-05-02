@@ -127,9 +127,17 @@ En el enunciado de la práctica se te indicará qué hacer en cada container.
 
 Los tests son un conjunto de pruebas que se lanzarán de forma automática en el escenario y que comprobarán si has realizado correctamente los pasos y ejercicios indicados en la práctica.
 
+### Instalación del módulo de Odoo para realizar los tests
+
+Antes de nada hay que instalar el módulo de Odoo sxe_tests, el cual se encuentra en el repositorio **https://github.com/javierfp-isc/sxe_tests**
+
+Por tanto antes de nada clonamos el repositorio
+
+`git clone git clone git@github.com:javierfp-isc/sxe_tests.git`
+
 ### Ejecución de los tests
 
-Para ejecutar los test nos situamos dentro del directorio test y lanzamos desde la terminal el comando:
+Una vez instalado el módulo anterir para ejecutar los test nos situamos dentro del **directorio tests** del repositorio y lanzamos desde la terminal el comando:
 
 `ansible-playbook test.yaml`
 
