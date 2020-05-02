@@ -18,8 +18,6 @@ services:
 #Service postgres
  postgres:
   build: ./postgres
-  ports:
-  - "5432:5432"
   volumes:
   - pg_data:/var/lib/postgresql/11/main
   networks:

@@ -34,8 +34,8 @@
   
   #Ejecución de comandos de test
   tasks:
-  - name : CUSTOM TASKS   
-    include_tasks: tasks/custom.yaml
+  # - name : CUSTOM TASKS   
+  #   include_tasks: tasks/custom.yaml
   - name:   
     block:
      - name : EJECUTAR COMANDOS TEST   

@@ -12,8 +12,9 @@ comandos:
      resultado: "/opt/odoo/src/odoo"
      puntuacion: 1
    - nombre: test módulo ventas
-     comando: "curl -X POST http://localhost:8069/web/dataset/call -H 'content-type: application/json' -H 'Cookie:session_id={{ session_id_8069 }}' -d '{\"jsonrpc\":\"2.0\",\"method\":\"call\",\"params\":{\"model\":\"sale.order\",\"method\":\"read\",\"args\":[1]}}'"
-     resultado: "\"S00001\""
+     comando: "curl -X GET \"{{ tests_url }}?login=admin&password=abc123.&metodo=test_modulo_instalado&modulo=sale_management\""
+     #comando: "curl -X POST http://localhost:8069/web/dataset/call -H 'content-type: application/json' -H 'Cookie:session_id={{ session_id_8069 }}' -d '{\"jsonrpc\":\"2.0\",\"method\":\"call\",\"params\":{\"model\":\"sale.order\",\"method\":\"read\",\"args\":[1]}}'"
+     resultado: "\"EXITO\""
      puntuacion: 2 
  #Los comandos que se ejecutan en este container van contra el 8069 (desde el punto de vista del container el puerto es el 8069, no el 8070)
  - escenario: "odoo_2container"
@@ -24,12 +25,16 @@ comandos:
      resultado: "RUNNING"
      puntuacion: 2
    - nombre: test módulo CRM
-     comando: "curl -X POST http://localhost:8069/web/dataset/call -H 'content-type: application/json' -H 'Cookie:session_id={{ session_id_8070 }}' -d '{\"jsonrpc\":\"2.0\",\"method\":\"call\",\"params\":{\"model\":\"crm.lead\",\"method\":\"read\",\"args\":[16]}}'"
-     resultado: "\"Global Solutions: Furnitures\""
+     comando: "curl -X GET \"{{ tests_url }}?login=admin&password=abc123.&metodo=test_modulo_instalado&modulo=crm\""
+     #comando: "curl -X POST http://localhost:8069/web/dataset/call -H 'content-type: application/json' -H 'Cookie:session_id={{ session_id_8070 }}' -d '{\"jsonrpc\":\"2.0\",\"method\":\"call\",\"params\":{\"model\":\"crm.lead\",\"method\":\"read\",\"args\":[16]}}'"
+     #resultado: "\"Global Solutions: Furnitures\""
+     resultado: "\"EXITO\""
      puntuacion: 1
    - nombre: test módulo website
-     comando: "curl -i http://localhost:8069"
-     resultado: "\"HTTP/1.0 200 OK\""
+     comando: "curl -X GET \"{{ tests_url }}?login=admin&password=abc123.&metodo=test_modulo_instalado&modulo=website\""
+     #comando: "curl -i http://localhost:8069"
+     #resultado: "\"HTTP/1.0 200 OK\""
+     resultado: "\"EXITO\""
      puntuacion: 1
    - nombre: addons_path OCA modules
      comando: "cat /opt/odoo/conf/odoo.conf | grep addons_path"

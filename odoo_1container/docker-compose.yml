@@ -5,7 +5,6 @@ services:
   build: ./odoo
   ports:
   - "8069:8069"
-  - "5432:5432"
   #Cambiarlo para el home de cada usuario
   volumes:
   - /home/javierfp/odoo:/opt/odoo/src
