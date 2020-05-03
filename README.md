@@ -10,18 +10,6 @@ La primera vez que realicéis una práctica será necesario configurar el entorn
 
 [REQUISITOS](REQUISITOS.md)
 
-### Archivo de variables alumno.yaml
-
-Dentro del directorio **tests/vars** hay un archivo **alumno.yaml**, el cual contiene una lista de variables que deberéis especificar para cada práctica. El tipo y número dependerá de la misma, pero como mínimo deberéis indicar vuestro **nombre** y **el token de acceso** a gitlab de vuestro usuario.
-
-`#Variables que debe especificar el alumno`
-
-`nombre_alumno: Javier Fernández Peón`
-
-`gitlab_token: 9HMCTHQDCJAfeqsPjtzY`
-
-*NOTAD que al ser formato YAML la sintaxis es del tipo clave: valor*
-
 ## Escenarios
 
 El escenario es el conjunto de elementos necesarios para la realización de la práctica. Consistirá en un conjunto de contenedores docker, uno o más, con funciones bien establecidas y descritas en la práctica. Tendrás que realizar los pasos indicados en la práctica en ellos, es decir serán la base de trabajo.
