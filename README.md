@@ -2,7 +2,7 @@
 
 ## Objetivo
 
-En esta práctica se va a desplegar Odoo en uno o varios docker container
+Con este repositorio se dispondrá de varios escenarios para desplegar Odoo en uno o varios docker container
 
 ## Pasos previos a realizar
 
@@ -122,58 +122,6 @@ Si en el escenario se ha creado algún volumen de datos asociado al container y 
 Una vez creado el escenario de la práctica es el momento de tomar el enunciado y realizar las tareas que se indican en el mismo. El escenario anterior habrá creado uno o varios docker containers y todos los artefactos necesarios.
 
 En el enunciado de la práctica se te indicará qué hacer en cada container.
-
-## Realización de los test
-
-Los tests son un conjunto de pruebas que se lanzarán de forma automática en el escenario y que comprobarán si has realizado correctamente los pasos y ejercicios indicados en la práctica.
-
-### Instalación del módulo de Odoo para realizar los tests
-
-Antes de nada hay que instalar el módulo de Odoo sxe_tests, el cual se encuentra en el repositorio **https://github.com/javierfp-isc/sxe_tests**
-
-Por tanto antes de nada clonamos el repositorio
-
-`git clone git clone git@github.com:javierfp-isc/sxe_tests.git`
-
-### Ejecución de los tests
-
-Una vez instalado el módulo anterir para ejecutar los test nos situamos dentro del **directorio tests** del repositorio y lanzamos desde la terminal el comando:
-
-`ansible-playbook test.yaml`
-
-Veremos en la salida del comando los mensajes de error si alguno de los test falla.
-
-Si todo los tests se pasan con éxito al final del comando veremos un mensaje del tipo
-
-**"ENHORABUENA!. Has superado todos los test"**
-
-En caso contrario, si alguno falla el mensaje será:
-
-**"LO SIENTO!. No has superado todos los test"**
-
-por tanto deberás de revisar cual ha fallado y realizar las correcciones oportunas
-
-### Archivos de log
-
-Puedes ver también el resultado de la ejecución de los test, además de en la salida de la terminal, en los archivos
-
-**log/test.log**: Toda la salida
-
-**log/report.log**: Salida resumida
-
-## Entrega
-
-Una vez que finalices correctamente la práctica, es decir con todos los test superados, para realizar la entrega de los resultados de ejecución de la misma deberás ejecutar el comando:
-
-`ansible-playbook test.yaml -e entregar=yes`
-
-Si hay algún error en los tests lo verás como se explica en el apartado anterior, **en cuyo caso la entrega no se realizará**
-
-### Entrega forzada
-
-Si quieres realizar la entrega **aún cuando algún test haya fallado** ejecuta el comando:
-
-`ansible-playbook test.yaml -e entregar=yes -e force=yes`
 
 ## Referencias
 
