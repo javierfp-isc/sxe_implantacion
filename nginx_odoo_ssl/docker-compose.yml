@@ -1,0 +1,57 @@
+version: '3'
+services:
+#Service odoo toma el Dockerfile de ./build/odoo
+ odoo1:
+  build: ./odoo
+  depends_on:
+  - postgres
+  ports:
+  - "8069:8069"
+  #Cambiarlo para el home de cada usuario
+  volumes:
+  - /home/javierfp/odoo:/opt/odoo/src
+  - /home/javierfp/odoo/conf:/opt/odoo/conf
+  - /home/javierfp/odoo/filestore:/opt/odoo/.local/share/Odoo
+  - /home/javierfp/odoo/log:/var/log/odoo
+  networks:
+   nginx_odoo_ssl:
+    ipv4_address: 192.168.201.101
+ odoo2:
+  build: ./odoo
+  depends_on:
+  - postgres
+  ports:
+  - "8070:8069"
+  #Cambiarlo para el home de cada usuario
+  volumes:
+  - /home/javierfp/odoo:/opt/odoo/src
+  - /home/javierfp/odoo/conf:/opt/odoo/conf
+  - /home/javierfp/odoo/filestore:/opt/odoo/.local/share/Odoo
+  - /home/javierfp/odoo/log:/var/log/odoo
+  networks:
+   nginx_odoo_ssl:
+    ipv4_address: 192.168.201.102
+ postgres:
+  build: ./postgres
+  volumes:
+  - pg_data_proxy:/var/lib/postgresql/11/main
+  networks:
+   nginx_odoo_ssl:
+    ipv4_address: 192.168.201.103
+ nginx:
+  build: ./nginx
+  networks:
+   nginx_odoo_ssl:
+    ipv4_address: 192.168.201.100
+  volumes:
+  - nginx_ssl_conf:/etc/nginx
+networks:
+  nginx_odoo_ssl:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 192.168.201.0/24
+volumes:
+  nginx_ssl_conf:
+  pg_data_proxy:
+   
