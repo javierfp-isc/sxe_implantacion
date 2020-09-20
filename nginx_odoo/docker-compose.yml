@@ -27,6 +27,8 @@ services:
     ipv4_address: 192.168.200.102
  nginx:
   build: ./nginx
+  ports:
+  - "80:80"
   networks:
    nginx_odoo:
     ipv4_address: 192.168.200.100
