@@ -5,11 +5,11 @@ services:
   build: ./odoo
   ports:
   - "8069:8069"
-  #Cambiarlo para el home de cada usuario
+  #Mapeo del directorio de la MV en el container
   volumes:
-  - /home/javierfp/odoo:/opt/odoo/src
-  - /home/javierfp/odoo/conf:/opt/odoo/conf
-  - /home/javierfp/odoo/log:/var/log/odoo
+  - /root/odoo:/opt/odoo/src
+  - /root/odoo/conf:/opt/odoo/conf
+  - /root/odoo/log:/var/log/odoo
   networks:
    nginx_odoo:
     ipv4_address: 192.168.200.101
@@ -17,11 +17,11 @@ services:
   build: ./odoo
   ports:
   - "8070:8069"
-  #Cambiarlo para el home de cada usuario
+  #Mapeo del directorio de la MV en el container
   volumes:
-  - /home/javierfp/odoo:/opt/odoo/src
-  - /home/javierfp/odoo/conf:/opt/odoo/conf
-  - /home/javierfp/odoo/log:/var/log/odoo
+  - /root/odoo:/opt/odoo/src
+  - /root/odoo/conf:/opt/odoo/conf
+  - /root/odoo/log:/var/log/odoo
   networks:
    nginx_odoo:
     ipv4_address: 192.168.200.102

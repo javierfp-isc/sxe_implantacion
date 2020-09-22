@@ -6,6 +6,6 @@ services:
   #Mapea el 8069 del container al anfitrión
   ports:
   - "8069:8069"
-  #Cambiarlo para el home de cada usuario
+  #Mapeo del directorio de la MV en el container
   volumes:
-  - /home/javierfp/odoo:/opt/odoo/src
+  - /root/odoo:/opt/odoo/src
