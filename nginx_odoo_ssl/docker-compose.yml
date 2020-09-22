@@ -3,6 +3,7 @@ services:
 #Service odoo toma el Dockerfile de ./build/odoo
  odoo1:
   build: ./odoo
+  hostname: odoo1
   depends_on:
   - postgres
   ports:
@@ -18,6 +19,7 @@ services:
     ipv4_address: 192.168.201.101
  odoo2:
   build: ./odoo
+  hostname: odoo2
   depends_on:
   - postgres
   ports:
@@ -33,6 +35,7 @@ services:
     ipv4_address: 192.168.201.102
  postgres:
   build: ./postgres
+  hostname: postgres
   volumes:
   - pg_data_proxy:/var/lib/postgresql/11/main
   networks:
@@ -40,6 +43,7 @@ services:
     ipv4_address: 192.168.201.103
  nginx:
   build: ./nginx
+  hostname: nginx
   ports:
   - "80:80"
   - "443:443"

@@ -3,6 +3,7 @@ services:
 #Service odoo
  odoo:
   build: ./odoo
+  hostname: odoo
   depends_on:
   - postgres
   ports:
@@ -18,6 +19,7 @@ services:
 #Service postgres
  postgres:
   build: ./postgres
+  hostname: postgres
   volumes:
   - pg_data:/var/lib/postgresql/11/main
   networks:
