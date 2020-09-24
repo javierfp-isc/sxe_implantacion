@@ -10,7 +10,7 @@ services:
   - "8069:8069"
   #Mapeo del directorio de la MV en el container
   volumes:
-  - /root/odoo:/opt/odoo/src
+  - /root/odoo/src:/opt/odoo/src
   - /root/odoo/conf:/opt/odoo/conf
   - /root/odoo/filestore:/opt/odoo/.local/share/Odoo
   - /root/odoo/log:/var/log/odoo
@@ -26,7 +26,7 @@ services:
   - "8070:8069"
   #Mapeo del directorio de la MV en el container
   volumes:
-  - /root/odoo:/opt/odoo/src
+  - /root/odoo/src:/opt/odoo/src
   - /root/odoo/conf:/opt/odoo/conf
   - /root/odoo/filestore:/opt/odoo/.local/share/Odoo
   - /root/odoo/log:/var/log/odoo
