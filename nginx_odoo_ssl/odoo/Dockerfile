@@ -37,7 +37,7 @@ RUN set -x; \
 	chown $ODOOUSER /opt/$ODOOUSER/src
 
 #Copiamos el odoo.conf al container
-COPY odoo.conf /opt/$ODOOUSER
+COPY odoo.conf /opt/$ODOOUSER/conf/odoo.conf
 
 #Instalamos paquetes de utilidades
 RUN set -x; \
