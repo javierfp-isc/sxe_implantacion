@@ -9,8 +9,6 @@ services:
   #Mapeo del directorio de la MV en el container
   volumes:
   - /root/odoo/src:/opt/odoo/src
-  - /root/odoo/conf:/opt/odoo/conf
-  - /root/odoo/log:/var/log/odoo
   networks:
    nginx_odoo:
     ipv4_address: 192.168.200.101
@@ -22,8 +20,6 @@ services:
   #Mapeo del directorio de la MV en el container
   volumes:
   - /root/odoo/src:/opt/odoo/src
-  - /root/odoo/conf:/opt/odoo/conf
-  - /root/odoo/log:/var/log/odoo
   networks:
    nginx_odoo:
     ipv4_address: 192.168.200.102

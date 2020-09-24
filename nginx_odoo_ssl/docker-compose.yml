@@ -11,9 +11,7 @@ services:
   #Mapeo del directorio de la MV en el container
   volumes:
   - /root/odoo/src:/opt/odoo/src
-  - /root/odoo/conf:/opt/odoo/conf
   - /root/odoo/filestore:/opt/odoo/.local/share/Odoo
-  - /root/odoo/log:/var/log/odoo
   networks:
    nginx_odoo_ssl:
     ipv4_address: 192.168.201.101
@@ -27,9 +25,7 @@ services:
   #Mapeo del directorio de la MV en el container
   volumes:
   - /root/odoo/src:/opt/odoo/src
-  - /root/odoo/conf:/opt/odoo/conf
   - /root/odoo/filestore:/opt/odoo/.local/share/Odoo
-  - /root/odoo/log:/var/log/odoo
   networks:
    nginx_odoo_ssl:
     ipv4_address: 192.168.201.102
