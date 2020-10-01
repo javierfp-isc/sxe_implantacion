@@ -5,7 +5,7 @@ MAINTAINER javierfp <javierfp@iessanclemente.net>
 ENV TERM xterm
 ENV PASS=abc123.
 ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-ENV NETWORK=192.168.199.0/24
+ENV NETWORK=0.0.0.0/0
 
 LABEL distribucion="Debian 10"
 LABEL descripcion="Imagen Postgres base Odoo 13  para prácticas"
