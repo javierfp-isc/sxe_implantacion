@@ -4,6 +4,13 @@ services:
  odoo:
   build: ./odoo
   hostname: odoo
+  environment:
+  - DBHOST=postgres
+  - DBUSER=odoo
+  - ODOOUSER=odoo
+  - DBPASS=abc123.
+  - ADMINPASS=abc123.
+  - LOGFILE=/var/log/odoo/odoo.log
   ports:
   - "8069:8069"
   #Mapeo del directorio de la MV en el container

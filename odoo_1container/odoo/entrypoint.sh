@@ -1,18 +1,25 @@
 #!/bin/bash
 
+#Sustituimos las variables de entorno en el odoo.conf
+sed -i "s/db_host = DBHOST/db_host = $DBHOST/" /opt/odoo/odoo.conf
+sed -i "s/db_user = DBUSER/db_user = $DBUSER/" /opt/odoo/odoo.conf
+sed -i "s/db_password = DBPASS/db_password = $DBPASS/" /opt/odoo/odoo.conf
+sed -i "s/admin_passwd = ADMINPASS/admin_passwd = $ADMINPASS/" /opt/odoo/odoo.conf
+sed -i "s%logfile = LOGFILE%logfile = $LOGFILE%" /opt/odoo/odoo.conf
+
 #Arrancamos servicios
 service ssh start
 service postgresql start
 
 #Creamos el archivo de log y cambiamos propietario
 touch /var/log/odoo/odoo.log
-chown odoo /var/log/odoo/odoo.log
+chown $ODOOUSER /var/log/odoo/odoo.log
 
 #Crea el usuario odoo en postgres
-su - postgres -c "createuser --createdb $ODOOUSER" && su - postgres -c "psql -c \"alter role $ODOOUSER with password '$ODOOPASS'\""
+su - postgres -c "createuser --createdb $DBUSER" && su - postgres -c "psql -c \"alter role $DBUSER with password '$DBPASS'\""
 
-#Escribe en /etc/hosts para que resuelva postgres al localhost
-echo "127.0.0.1 postgres" >> /etc/hosts
+#Escribe en /etc/hosts para que resuelva el DBHOST al localhost
+echo "127.0.0.1 $DBHOST" >> /etc/hosts
 
 #Arranca odoo (while: la primera vez no arranca bien)
 while [[ ! $(service odoo.sh start) ]];do continue;done
