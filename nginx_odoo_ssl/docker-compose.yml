@@ -1,9 +1,13 @@
-version: '3'
+version: '3.2'
 services:
 #Service odoo toma el Dockerfile de ./build/odoo
  odoo1:
   build: ./odoo
   hostname: odoo1
+  env_file: 
+  - "odoo/odoo.env"
+  environment:
+  - DBHOST=postgres1
   depends_on:
   - postgres1
   ports:
@@ -19,6 +23,10 @@ services:
  odoo2:
   build: ./odoo
   hostname: odoo2
+  env_file: 
+  - "odoo/odoo.env"
+  environment:
+  - DBHOST=postgres1
   depends_on:
   - postgres1
   ports:
@@ -34,6 +42,10 @@ services:
  odoo3:
   build: ./odoo
   hostname: odoo3
+  env_file: 
+  - "odoo/odoo.env"
+  environment:
+  - DBHOST=postgres2
   depends_on:
   - postgres2
   ports:
@@ -49,6 +61,10 @@ services:
  odoo4:
   build: ./odoo
   hostname: odoo4
+  env_file: 
+  - "odoo/odoo.env"
+  environment:
+  - DBHOST=postgres2
   depends_on:
   - postgres2
   ports:
@@ -64,6 +80,8 @@ services:
  postgres1:
   build: ./postgres
   hostname: postgres1
+  env_file: 
+  - "postgres/postgres.env"
   volumes:
   - pg_data1:/var/lib/postgresql/11/main
   networks:
@@ -72,6 +90,8 @@ services:
  postgres2:
   build: ./postgres
   hostname: postgres2
+  env_file: 
+  - "postgres/postgres.env"
   volumes:
   - pg_data2:/var/lib/postgresql/11/main
   networks:
