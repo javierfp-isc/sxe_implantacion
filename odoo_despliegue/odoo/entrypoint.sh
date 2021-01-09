@@ -1,5 +1,13 @@
 #!/bin/bash
 
+#Crea el usuario para odoo
+if [[ ! $(id $ODOOUSER) ]]
+then
+    useradd -m -d /opt/$ODOOUSER -U -s /bin/bash $ODOOUSER
+    chown $ODOOUSER:$ODOOUSER /opt/$ODOOUSER
+    echo "$ODOOUSER:$ODOOPASS" | chpasswd
+fi
+
 #Arrancamos servicios
 service ssh start
 service postgresql start

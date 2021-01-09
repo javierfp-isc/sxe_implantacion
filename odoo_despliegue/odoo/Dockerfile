@@ -3,8 +3,7 @@ FROM debian:buster
 MAINTAINER javierfp <javierfp@iessanclemente.net>
 
 ENV TERM xterm
-ENV ODOOUSER=odoo
-ENV ODOOPASS=abc123.
+ENV ROOTPASS=abc123.
 ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 LABEL distribucion="Debian 10"
@@ -28,11 +27,7 @@ RUN set -x; \
 
 #Establecemos la password de root
 RUN set -x; \
-	echo "root:$ODOOPASS" | chpasswd
-
-#Crea el usuario para odoo
-RUN set -x; \
-	useradd -m -d /opt/$ODOOUSER -U -s /bin/bash $ODOOUSER && echo "$ODOOUSER:$ODOOPASS" | chpasswd
+	echo "root:$ROOTPASS" | chpasswd
 
 #Instalamos paquetes de utilidades
 RUN set -x; \

@@ -4,6 +4,9 @@ services:
  odoo:
   build: ./odoo
   hostname: odoo
+  environment:
+  - ODOOUSER=odoo
+  - ODOOPASS=abc123.
   #Mapea el 8069 del container al anfitrión
   ports:
   - "8069:8069"
