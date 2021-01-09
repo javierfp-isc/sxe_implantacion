@@ -1,9 +1,11 @@
-version: '3'
+version: '3.2'
 services:
 #Service odoo toma el Dockerfile de ./build/odoo
  odoo1:
   build: ./odoo
   hostname: odoo1
+  env_file: 
+  - "odoo/odoo.env"
   ports:
   - "8069:8069"
   #Mapeo del directorio de la MV en el container
@@ -15,6 +17,8 @@ services:
  odoo2:
   build: ./odoo
   hostname: odoo2
+  env_file: 
+  - "odoo/odoo.env"
   ports:
   - "8070:8069"
   #Mapeo del directorio de la MV en el container
