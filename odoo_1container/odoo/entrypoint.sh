@@ -12,8 +12,8 @@ service ssh start
 service postgresql start
 
 #Creamos el archivo de log y cambiamos propietario
-touch /var/log/odoo/odoo.log
-chown $ODOOUSER /var/log/odoo/odoo.log
+touch $LOGFILE
+chown $ODOOUSER $LOGFILE
 
 #Crea el usuario odoo en postgres
 su - postgres -c "createuser --createdb $DBUSER" && su - postgres -c "psql -c \"alter role $DBUSER with password '$DBPASS'\""
