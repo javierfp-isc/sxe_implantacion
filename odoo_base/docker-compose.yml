@@ -1,0 +1,14 @@
+version: '3'
+services:
+#Service odoo toma el Dockerfile de ./build/odoo13
+ odoo:
+  build: ./odoo
+  hostname: odoo
+  env_file: 
+  - "odoo/envfile"
+  #Mapea el 8069 del container al anfitrión
+  ports:
+  - "8069:8069"
+  #Mapeo del directorio de la MV en el container
+  volumes:
+  - /home/javierfp/odoo/src:/opt/odoo/src
