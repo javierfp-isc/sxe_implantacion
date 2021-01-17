@@ -14,7 +14,7 @@ sed -i "s/OCBDIR/$OCBDIR/" /etc/init.d/odoo.sh
 sed -i "s/ODOOUSER/$ODOOUSER/" /etc/init.d/odoo.sh
 
 #Creamos el archivo de log y cambiamos propietario
-mkdir $(dirname $LOGFILE)
+mkdir -p $(dirname $LOGFILE)
 touch $LOGFILE
 chown $ODOOUSER $LOGFILE
 
