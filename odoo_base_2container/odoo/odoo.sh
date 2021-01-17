@@ -24,10 +24,10 @@
 PATH=/bin:/sbin:/usr/bin
 NAME=odoo
 DESC=ODOO-SERVER
-DAEMON=$ODOOHOME/src/$OCBDIR/odoo-bin
-CONFIGFILE="$ODOOHOME/odoo.conf" # Specify the Odoo Configuration file path.
+DAEMON=ODOOHOME/src/OCBDIR/odoo-bin
+CONFIGFILE="ODOOHOME/odoo.conf" # Specify the Odoo Configuration file path.
 
-USER=$ODOOUSER # Specify the user name (Default: odoo).
+USER=ODOOUSER # Specify the user name (Default: odoo).
 
 PIDFILE=/var/run/$NAME.pid # pidfile
 
