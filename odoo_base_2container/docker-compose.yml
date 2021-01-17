@@ -11,7 +11,7 @@ services:
   - "8069:8069"
   #Mapeo del directorio de la MV en el container
   volumes:
-  - /home/javierfp/odoo/src:/opt/odoo/src
+  - ~/odoo/src:/opt/odoo/src
 #Service postgres
  postgres:
   build: ./postgres

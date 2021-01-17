@@ -12,4 +12,4 @@ services:
   - "5432:5432"
   #Mapeo del directorio de la MV en el container
   volumes:
-  - /home/javierfp/odoo/src:/opt/odoo/src
+  - ~/odoo/src:/opt/odoo/src
