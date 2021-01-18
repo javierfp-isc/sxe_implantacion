@@ -1,10 +1,9 @@
 FROM debian:buster
 
-MAINTAINER javierfp <javierfp@iessanclemente.net>
-
 ENV TERM xterm
 ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
+LABEL maintainer=javierfp@iessanclemente.net
 LABEL distribucion="Debian 10"
 LABEL descripcion="Imagen Odoo para prácticas"
 
@@ -18,17 +17,14 @@ RUN chmod +x /usr/bin/entrypoint.sh
 
 #Copiamos el script de odoo
 COPY odoo.sh /etc/init.d/odoo.sh
-#Activamos el script (set -x muestra la salida de todos los comandos)
+#Activamos el script
 RUN chmod +x /etc/init.d/odoo.sh
 
-#Copiamos el archivo de configuración de odoo al temporal
-COPY odoo.conf /tmp/odoo.conf
-
 #Cargamos variables del envfile y creamos el usuario de odoo
-RUN /bin/bash -c 'source /tmp/envfile; useradd -m -d $ODOOHOME -U -s /bin/bash $ODOOUSER; chown $ODOOUSER:$ODOOUSER $ODOOHOME; echo $ODOOUSER:$ODOOPASS | chpasswd'
+RUN useradd -m -d /opt/odoo -U -s /bin/bash odoo; chown odoo:odoo /opt/odoo; echo odoo:abc123. | chpasswd
 
-#Movemos el archivo de configuración
-RUN /bin/bash -c 'source /tmp/envfile; mv /tmp/odoo.conf $ODOOHOME'
+#Copiamos el archivo de configuración de odoo
+COPY odoo.conf /opt/odoo/odoo.conf
 
 #Instalamos paquetes de utilidades
 RUN /bin/bash -c 'source /tmp/envfile; apt update; apt install -y $PACKUTILS'

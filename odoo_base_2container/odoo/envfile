@@ -1,7 +1,4 @@
 ODOOV=14.0
-ODOOUSER=odoo
-ODOOPASS=abc123.
-ODOOHOME=/opt/odoo
 DBHOST=postgres
 DBUSER=odoo
 DBPASS=abc123.
