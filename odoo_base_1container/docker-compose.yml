@@ -9,7 +9,7 @@ services:
   #Mapea el 8069 del container al anfitrión
   ports:
   - "8069:8069"
-  - "5432:5432"
+  - "15432:5432"
   #Mapeo del directorio de la MV en el container
   volumes:
   - ~/odoo/src:/opt/odoo/src

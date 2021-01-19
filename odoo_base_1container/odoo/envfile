@@ -1,4 +1,5 @@
 ODOOV=14.0
+DBHOST=postgres
 DBUSER=odoo
 DBPASS=abc123.
 ADMINPASS=abc123.
