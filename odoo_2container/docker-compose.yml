@@ -1,34 +1,26 @@
 version: '3'
 services:
-#Service odoo
+#Service odoo toma el Dockerfile de ./build/odoo13
  odoo:
   build: ./odoo
   hostname: odoo
-  environment:
-  - DBHOST=postgres
-  - DBUSER=odoo
-  - ODOOUSER=odoo
-  - DBPASS=abc123.
-  - ADMINPASS=abc123.
-  - LOGFILE=/var/log/odoo/odoo.log
-  depends_on:
-  - postgres
+  env_file: 
+  - "odoo/envfile"
+  #Mapea el 8069 del container al anfitrión
   ports:
   - "8069:8069"
   #Mapeo del directorio de la MV en el container
   volumes:
-  - /root/odoo/src:/opt/odoo/src
+  - ~/odoo/src:/opt/odoo/src
 #Service postgres
  postgres:
   build: ./postgres
   hostname: postgres
-  environment: 
-  - DBUSER=odoo 
-  - DBPASS=abc123.
+  env_file:  
+  - "odoo/envfile"
   ports:
-  - "5432:5432"
+  - "15432:5432"
   volumes:
   - pg_data:/var/lib/postgresql/11/main
 volumes:
   pg_data:
-

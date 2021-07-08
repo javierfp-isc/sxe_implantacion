@@ -17,7 +17,38 @@ El escenario es el conjunto de elementos necesarios para la realización de la p
 Este repositorio contiene 5 escenarios:
 
 - **odoo_despliegue**: creación sencilla de 1 container para odoo
-- **odoo_1container**: despliegue completo de odoo en 1 container
-- **odoo_2container**: despliegue completo de odoo en 2 containers
+- **odoo_1container**: despliegue completo de odoo en 1 container (odoo+postgres)
+- **odoo_2container**: despliegue completo de odoo en 2 containers (odoo y postgres por separado)
 - **nginx_odoo**: despliegue de dos instancias de odoo pasando por proxy nginx
 - **nginx_odoo_ssl**: despliegue de dos instancias de odoo pasando por proxy nginx actuando en alta disponibilidad (HA)
+
+## Directorio de fuentes
+
+El directorio de fuentes se Odoo estará disponible en el docker host (anfitrión) en la ruta:
+
+~/odoo/src
+
+Por ejemplo, podemos clonar el repositorio de OCA v14 en el directorio OCB14
+
+`mkdir -p ~/odoo/src`
+
+`cd ~/odoo/src`
+
+`git clone -b 14.0 --depth 1 https://github.com/OCB/OCA OCB14`
+
+Una vez descargado el repositorio en el directorio correspondiente éste se montará en el container a través del mapeo definido en el archivo **docker-compose.yml** del escenario.
+
+## Lanzando
+
+Por ejemplo, para lanzar el escenario **odoo_2container**, el cual despliega odoo en dos container:
+
+`cd odoo_2container`
+
+`docker-compose up -d`
+
+NOTA.- En el archivo odoo/envfile se definen parámetros para el despliegue, entre otros:
+
+* **ODOOV=14.0**: Versión de Odoo a desplegar, en este caso la 14.0
+* **OCBDIR=OCB14**: Directorio en el directorio ~/odoo/src del host con las fuentes de Odoo, en este caso el directorio OCB14
+
+
