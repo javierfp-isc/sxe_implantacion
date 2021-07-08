@@ -20,8 +20,8 @@ COPY odoo.sh /etc/init.d/odoo.sh
 #Activamos el script
 RUN chmod +x /etc/init.d/odoo.sh
 
-#Cargamos variables del envfile y creamos el usuario de odoo
-RUN useradd -m -d /opt/odoo -U -s /bin/bash odoo; chown odoo:odoo /opt/odoo; echo odoo:abc123. | chpasswd
+#Creamos el usuario de odoo
+RUN useradd -m -d /opt/odoo -U -s /bin/bash odoo; chown odoo:odoo /opt/odoo
 
 #Copiamos el archivo de configuración de odoo
 COPY odoo.conf /opt/odoo/odoo.conf
