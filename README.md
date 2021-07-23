@@ -46,7 +46,7 @@ Por ejemplo, para lanzar el escenario **odoo_2container**, el cual despliega odo
 
 `docker-compose up -d`
 
-NOTA.- En el archivo odoo/envfile se definen parámetros para el despliegue, entre otros:
+NOTA.- En el archivo odoo/deploy.env se definen parámetros para el despliegue, entre otros:
 
 * **ODOOV=14.0**: Versión de Odoo a desplegar, en este caso la 14.0
 * **OCBDIR=OCB14**: Directorio en el directorio ~/odoo/src del host con las fuentes de Odoo, en este caso el directorio OCB14
