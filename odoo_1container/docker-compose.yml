@@ -1,11 +1,11 @@
 version: '3'
 services:
-#Service odoo toma el Dockerfile de ./build/odoo13
+#Service odoo toma el Dockerfile de ./odoo
  odoo:
   build: ./odoo
+  env_file:
+  - "odoo/deploy.env"
   hostname: odoo
-  env_file: 
-  - "odoo/envfile"
   #Mapea el 8069 del container al anfitrión
   ports:
   - "8069:8069"

@@ -5,7 +5,7 @@ services:
   build: ./odoo
   hostname: odoo
   env_file: 
-  - "odoo/envfile"
+  - "odoo/deploy.env"
   #Mapea el 8069 del container al anfitrión
   ports:
   - "8069:8069"
@@ -17,7 +17,7 @@ services:
   build: ./postgres
   hostname: postgres
   env_file:  
-  - "odoo/envfile"
+  - "postgres/deploy.env"
   ports:
   - "15432:5432"
   volumes:
