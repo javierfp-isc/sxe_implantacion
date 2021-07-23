@@ -1,4 +1,4 @@
-FROM javierfpisc/odoo:v13conpostgres
+FROM javierfpisc/odoo:v14conpostgres
 
 MAINTAINER javierfp <javierfp@iessanclemente.net>
 

@@ -10,10 +10,10 @@ services:
   - "8069:8069"
   #Mapeo del directorio de la MV en el container
   volumes:
-  - /root/odoo/src:/opt/odoo/src
+  - ~/odoo/src:/opt/odoo/src
   networks:
    nginx_odoo:
-    ipv4_address: 192.168.200.101
+    ipv4_address: 192.168.201.101
  odoo2:
   build: ./odoo
   hostname: odoo2
@@ -23,10 +23,10 @@ services:
   - "8070:8069"
   #Mapeo del directorio de la MV en el container
   volumes:
-  - /root/odoo/src:/opt/odoo/src
+  - ~/odoo/src:/opt/odoo/src
   networks:
    nginx_odoo:
-    ipv4_address: 192.168.200.102
+    ipv4_address: 192.168.201.102
  nginx:
   build: ./nginx
   hostname: nginx
@@ -34,7 +34,7 @@ services:
   - "80:80"
   networks:
    nginx_odoo:
-    ipv4_address: 192.168.200.100
+    ipv4_address: 192.168.201.100
   volumes:
   - nginx_conf:/etc/nginx
 networks:
@@ -42,7 +42,7 @@ networks:
     driver: bridge
     ipam:
      config:
-       - subnet: 192.168.200.0/24
+       - subnet: 192.168.201.0/24
 volumes:
   nginx_conf:
    

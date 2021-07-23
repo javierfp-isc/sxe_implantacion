@@ -14,12 +14,12 @@ services:
   - "8069:8069"
   #Mapeo del directorio de la MV en el container
   volumes:
-  - /root/odoo/src:/opt/odoo/src
+  - ~/odoo/src:/opt/odoo/src
   - odoo_fs_thompson:/opt/odoo/.local/share/Odoo/
   - thompson_conf:/opt/odoo/conf
   networks:
    nginx_odoo_ssl:
-    ipv4_address: 192.168.201.101
+    ipv4_address: 192.168.202.101
  odoo2:
   build: ./odoo
   hostname: odoo2
@@ -33,12 +33,12 @@ services:
   - "8070:8069"
   #Mapeo del directorio de la MV en el container
   volumes:
-  - /root/odoo/src:/opt/odoo/src
+  - ~/odoo/src:/opt/odoo/src
   - odoo_fs_thompson:/opt/odoo/.local/share/Odoo/
   - thompson_conf:/opt/odoo/conf
   networks:
    nginx_odoo_ssl:
-    ipv4_address: 192.168.201.102
+    ipv4_address: 192.168.202.102
  odoo3:
   build: ./odoo
   hostname: odoo3
@@ -52,12 +52,12 @@ services:
   - "8071:8069"
   #Mapeo del directorio de la MV en el container
   volumes:
-  - /root/odoo/src:/opt/odoo/src
+  - ~/odoo/src:/opt/odoo/src
   - odoo_fs_ritchie:/opt/odoo/.local/share/Odoo/
   - ritchie_conf:/opt/odoo/conf
   networks:
    nginx_odoo_ssl:
-    ipv4_address: 192.168.201.103
+    ipv4_address: 192.168.202.103
  odoo4:
   build: ./odoo
   hostname: odoo4
@@ -71,12 +71,12 @@ services:
   - "8072:8069"
   #Mapeo del directorio de la MV en el container
   volumes:
-  - /root/odoo/src:/opt/odoo/src
+  - ~/odoo/src:/opt/odoo/src
   - odoo_fs_ritchie:/opt/odoo/.local/share/Odoo/
   - ritchie_conf:/opt/odoo/conf
   networks:
    nginx_odoo_ssl:
-    ipv4_address: 192.168.201.104
+    ipv4_address: 192.168.202.104
  postgres1:
   build: ./postgres
   hostname: postgres1
@@ -86,7 +86,7 @@ services:
   - pg_data1:/var/lib/postgresql/11/main
   networks:
    nginx_odoo_ssl:
-    ipv4_address: 192.168.201.110
+    ipv4_address: 192.168.202.110
  postgres2:
   build: ./postgres
   hostname: postgres2
@@ -96,7 +96,7 @@ services:
   - pg_data2:/var/lib/postgresql/11/main
   networks:
    nginx_odoo_ssl:
-    ipv4_address: 192.168.201.111
+    ipv4_address: 192.168.202.111
  nginx:
   build: ./nginx
   hostname: nginx
@@ -105,7 +105,7 @@ services:
   - "443:443"
   networks:
    nginx_odoo_ssl:
-    ipv4_address: 192.168.201.100
+    ipv4_address: 192.168.202.100
   volumes:
   - nginx_ssl_conf:/etc/nginx
 networks:
@@ -113,7 +113,7 @@ networks:
     driver: bridge
     ipam:
      config:
-       - subnet: 192.168.201.0/24
+       - subnet: 192.168.202.0/24
 volumes:
   nginx_ssl_conf:
   pg_data1:
