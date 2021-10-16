@@ -2,7 +2,6 @@ FROM debian:buster
 
 ENV TERM xterm
 ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-ENV PACKUTILS "vim git curl iputils-ping net-tools nano wget procps"
 
 LABEL distribucion="Debian 10"
 LABEL descripcion="Imagen Postgres para prácticas SXE"
