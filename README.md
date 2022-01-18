@@ -34,7 +34,7 @@ Por ejemplo, podemos clonar el repositorio de OCA v14 en el directorio OCB14
 
 `cd ~/odoo/src`
 
-`git clone -b 14.0 --depth 1 https://github.com/OCB/OCA OCB14`
+`git clone -b 14.0 --depth 1 https://github.com/OCA/OCB OCB14`
 
 Una vez descargado el repositorio en el directorio correspondiente éste se montará en el container a través del mapeo definido en el archivo **docker-compose.yml** del escenario.
 
