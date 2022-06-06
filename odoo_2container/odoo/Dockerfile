@@ -1,10 +1,10 @@
-FROM debian:buster
+FROM debian:bullseye
 
 ENV TERM xterm
 ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 LABEL maintainer=javierfp@iessanclemente.net
-LABEL distribucion="Debian 10"
+LABEL distribucion="Debian 11"
 LABEL descripcion="Imagen Odoo para prácticas"
 
 #Copiamos el deploy.env al container
