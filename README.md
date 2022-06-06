@@ -28,13 +28,13 @@ El directorio de fuentes se Odoo estará disponible en el docker host (anfitrió
 
 ~/odoo/src
 
-Por ejemplo, podemos clonar el repositorio de OCA v14 en el directorio OCB14
+Por ejemplo, podemos clonar el repositorio de OCA v15 en el directorio OCB
 
 `mkdir -p ~/odoo/src`
 
 `cd ~/odoo/src`
 
-`git clone -b 14.0 --depth 1 https://github.com/OCB/OCA OCB14`
+`git clone -b 15.0 --depth 1 https://github.com/OCA/OCB OCB`
 
 Una vez descargado el repositorio en el directorio correspondiente éste se montará en el container a través del mapeo definido en el archivo **docker-compose.yml** del escenario.
 
@@ -48,7 +48,7 @@ Por ejemplo, para lanzar el escenario **odoo_2container**, el cual despliega odo
 
 NOTA.- En el archivo odoo/deploy.env se definen parámetros para el despliegue, entre otros:
 
-* **ODOOV=14.0**: Versión de Odoo a desplegar, en este caso la 14.0
-* **OCBDIR=OCB14**: Directorio en el directorio ~/odoo/src del host con las fuentes de Odoo, en este caso el directorio OCB14
+* **ODOOV=15.0**: Versión de Odoo a desplegar, en este caso la 15.0
+* **OCBDIR=OCB**: Directorio en el directorio ~/odoo/src del host con las fuentes de Odoo, en este caso el directorio OCB
 
 

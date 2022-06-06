@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM debian:bullseye
 
 LABEL maintainer=javierfp@iessanclemente.net
 
@@ -6,7 +6,7 @@ ENV TERM xterm
 ENV PASS abc123.
 ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-LABEL distribucion="Debian 10"
+LABEL distribucion="Debian 11"
 LABEL descripcion="Imagen Nginx Proxy Odoo"
 LABEL paquetes="vim, git, curl, iputils-ping, net-tools, nano, wget, openssh-server"
 LABEL acceso="usuario: root, password: abc123."

@@ -13,3 +13,6 @@ services:
   #Mapeo del directorio de la MV en el container
   volumes:
   - ~/odoo/src:/opt/odoo/src
+  - odoo_fs:/opt/odoo/.local/share/Odoo/filestore
+volumes:
+  odoo_fs:
