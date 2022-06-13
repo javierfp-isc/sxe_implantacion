@@ -13,6 +13,9 @@ su - postgres -c "createuser --createdb $DBUSER" && su - postgres -c "psql -c \"
 #Escribe en /etc/hosts para que resuelva postgres al localhost
 echo "127.0.0.1 postgres" >> /etc/hosts
 
+#Cambiamos permisos del directorio de odoo
+[ $(stat -c "%G" /opt/odoo) == "odoo" ] || chown -R odoo:odoo /opt/odoo
+
 #Uso exec para lanzar un proceso independiente de bucle infinito
 exec bash -c "while true;do sleep 10;done"
 
