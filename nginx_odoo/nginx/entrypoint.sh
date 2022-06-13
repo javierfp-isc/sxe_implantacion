@@ -1,8 +1,5 @@
 #!/bin/bash
 
-#Arrancamos ssh
-service ssh start
-
 #Arranca nginx
 service nginx start
 

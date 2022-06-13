@@ -1,7 +1,6 @@
 #!/bin/bash
 
 #Arrancamos servicios
-service ssh start
 service postgresql start
 
 #Crea el usuario odoo en postgres
