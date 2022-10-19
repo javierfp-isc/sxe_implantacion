@@ -26,6 +26,8 @@ RUN chown odoo:odoo /opt/odoo
 
 #Copiamos el archivo de configuración de odoo
 COPY odoo.conf /opt/odoo/odoo.conf
+#Damos permiso de lectura al archivo de configuración
+RUN chmod +r /opt/odoo/odoo.conf
 
 #Instalamos paquetes
 RUN /bin/bash -c 'source /tmp/deploy.env; apt update; apt install -y $PACKS'
