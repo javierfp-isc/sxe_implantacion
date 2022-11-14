@@ -83,7 +83,7 @@ services:
   env_file: 
   - "postgres/postgres.env"
   volumes:
-  - pg_data1:/var/lib/postgresql/11/main
+  - pg_data1:/var/lib/postgresql/13/main
   networks:
    nginx_odoo_ssl:
     ipv4_address: 192.168.202.110
@@ -93,7 +93,7 @@ services:
   env_file: 
   - "postgres/postgres.env"
   volumes:
-  - pg_data2:/var/lib/postgresql/11/main
+  - pg_data2:/var/lib/postgresql/13/main
   networks:
    nginx_odoo_ssl:
     ipv4_address: 192.168.202.111
