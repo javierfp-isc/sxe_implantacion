@@ -21,6 +21,9 @@ chown $ODOOUSER $LOGFILE
 #Cambiamos permisos del directorio de odoo
 [ $(stat -c "%G" /opt/odoo) == "odoo" ] || chown -R odoo:odoo /opt/odoo
 
+#Cambiamos propietario del filestore
+[ $(stat -c "%G" $LOCALFS) == "odoo" ] || chown -R odoo:odoo $LOCALFS
+
 #Crea el usuario odoo en postgres
 su - postgres -c "createuser --createdb $DBUSER" && su - postgres -c "psql -c \"alter role $DBUSER with password '$DBPASS'\""
 
