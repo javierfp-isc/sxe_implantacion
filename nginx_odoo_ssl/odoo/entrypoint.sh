@@ -21,6 +21,9 @@ while [[ ! $(service odoo.sh start) ]];do continue;done
 #Cambiamos permisos del directorio de odoo
 [ $(stat -c "%G" /opt/odoo) == "odoo" ] || chown -R odoo:odoo /opt/odoo
 
+#Cambiamos propietario del filestore
+[ $(stat -c "%G" $LOCALFS) == "odoo" ] || chown -R odoo:odoo $LOCALFS
+
 #Uso exec para lanzar un proceso independiente de bucle infinito
 exec bash -c "while true;do sleep 10;done"
 
