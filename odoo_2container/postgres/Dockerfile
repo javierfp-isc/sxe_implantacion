@@ -17,5 +17,11 @@ RUN chmod +x /usr/bin/entrypoint.sh
 #Instalamos paquetes
 RUN /bin/bash -c 'source /tmp/deploy.env; apt update; apt install -y $PACKS'
 
+#Ejecutamos lista de comandos del deploy.env
+RUN /bin/bash -c 'source /tmp/deploy.env;IFS=',';for command in $COMMANDS;do sh -c $command;done'
+
+#Limpiando
+RUN apt clean
+
 #Comando para arrancar ssh y entrar en bucle de espera
 ENTRYPOINT ["/usr/bin/entrypoint.sh"]
