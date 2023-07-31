@@ -27,7 +27,7 @@ DESC=ODOO-SERVER
 # Specify the daemon path for Odoo server.
 # (Default for ODOO >=10: /opt/odoo/odoo-bin)
 # (Default for ODOO <=9: /opt/odoo/openerp-server)
-DAEMON=/opt/odoo/src/OCB16/odoo-bin
+DAEMON=/opt/odoo/src/OCB/odoo-bin
 CONFIGFILE="/opt/odoo/odoo.conf" # Specify the Odoo Configuration file path.
 
 USER=odoo # Specify the user name (Default: odoo).
