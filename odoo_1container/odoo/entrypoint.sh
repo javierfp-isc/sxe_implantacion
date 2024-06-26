@@ -11,8 +11,8 @@ sed -i "s/OCBDIR/$OCBDIR/" /opt/odoo/odoo.conf
 sed -i "s/OCBDIR/$OCBDIR/" /etc/init.d/odoo.sh
 
 #Habilitar acceso desde host remotos a postgres
-[[ $(grep "^host all all 0.0.0.0/0 md5" /etc/postgresql/13/main/pg_hba.conf) ]] || echo "host all all 0.0.0.0/0 md5" >> /etc/postgresql/13/main/pg_hba.conf
-[[ $(grep "^listen_addresses='*'" /etc/postgresql/13/main/postgresql.conf) ]] || echo "listen_addresses='*'" >> /etc/postgresql/13/main/postgresql.conf
+[[ $(grep "^host all all 0.0.0.0/0 md5" /etc/postgresql/15/main/pg_hba.conf) ]] || echo "host all all 0.0.0.0/0 md5" >> /etc/postgresql/15/main/pg_hba.conf
+[[ $(grep "^listen_addresses='*'" /etc/postgresql/15/main/postgresql.conf) ]] || echo "listen_addresses='*'" >> /etc/postgresql/15/main/postgresql.conf
 
 #Creamos el archivo de log y cambiamos propietario
 mkdir -p $(dirname $LOGFILE)
@@ -35,5 +35,5 @@ echo "127.0.0.1 postgres" >> /etc/hosts
 while [[ ! $(service odoo.sh start) ]];do continue;done
 
 #Uso exec para lanzar un proceso independiente de bucle infinito
-exec bash -c "while true;do sleep 10;done"
+exec bash -c "while true;do sleep 1000;done"
 
