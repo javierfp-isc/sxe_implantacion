@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #Habilitar acceso desde host remotos a postgres
-[[ $(grep "^host all all 0.0.0.0/0 md5" /etc/postgresql/13/main/pg_hba.conf) ]] || echo "host all all 0.0.0.0/0 md5" >> /etc/postgresql/13/main/pg_hba.conf
-[[ $(grep "^listen_addresses='*'" /etc/postgresql/13/main/postgresql.conf) ]] || echo "listen_addresses='*'" >> /etc/postgresql/13/main/postgresql.conf
+[[ $(grep "^host all all 0.0.0.0/0 md5" /etc/postgresql/15/main/pg_hba.conf) ]] || echo "host all all 0.0.0.0/0 md5" >> /etc/postgresql/15/main/pg_hba.conf
+[[ $(grep "^listen_addresses='*'" /etc/postgresql/15/main/postgresql.conf) ]] || echo "listen_addresses='*'" >> /etc/postgresql/15/main/postgresql.conf
 
 #Arrancamos servicios
 service postgresql start
