@@ -1,4 +1,4 @@
-FROM javierfpisc/postgres:v13
+FROM javierfpisc/postgres:v15
 
 #Copiamos el entrypoint.sh al container
 COPY entrypoint.sh /usr/bin/entrypoint.sh
