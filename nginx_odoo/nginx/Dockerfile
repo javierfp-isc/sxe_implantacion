@@ -14,7 +14,7 @@ COPY entrypoint.sh /usr/bin/entrypoint.sh
 RUN chmod +x /usr/bin/entrypoint.sh
 
 #Instalamos paquetes de utilidades
-RUN apt update && apt install -y vim git curl iputils-ping net-tools nano wget procps
+RUN apt update && apt install -y vim git curl iputils-ping net-tools nano wget procps && apt clean
 
 #Instalamos nginx
 RUN apt install -y nginx && apt clean
