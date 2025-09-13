@@ -15,7 +15,7 @@ RUN chmod +x /usr/bin/entrypoint.sh
 
 #Instalamos paquetes de utilidades de auditoría
 RUN apt update && apt install -y vim git curl iputils-ping nano wget procps nmap \
-gobuster hydra dirb sslscan net-tools jq perl python3-odoorpc && apt clean
+gobuster ffuf hydra dirb sslscan net-tools jq perl python3-odoorpc && apt clean
 
 #Comando para arrancar ssh y entrar en bucle de espera
 ENTRYPOINT ["/usr/bin/entrypoint.sh"]
