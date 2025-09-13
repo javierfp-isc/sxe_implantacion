@@ -1,0 +1,28 @@
+services:
+#Service odoo toma el Dockerfile de ./build/odoo
+ odoo:
+  build: ./odoo
+  hostname: odoo
+  env_file: 
+  - "odoo/odoo.env"
+  ports:
+  - "8069:8069"
+  #Mapeo del directorio de la MV en el container
+  volumes:
+  - ~/odoo/src:/opt/odoo/src
+  networks:
+   auditoria_odoo:
+    ipv4_address: 192.168.204.101 
+ auditor:
+  build: ./auditor
+  hostname: auditor
+  networks:
+   auditoria_odoo:
+    ipv4_address: 192.168.204.100
+networks:
+  auditoria_odoo:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 192.168.204.0/24
+   
