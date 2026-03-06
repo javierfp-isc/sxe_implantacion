@@ -1,11 +1,10 @@
-FROM debian:12
+FROM debian:13
 
 LABEL maintainer=javierfp@iessanclemente.net
 
 ENV TERM xterm
 ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-LABEL distribucion="Debian 12"
 LABEL descripcion="Imagen Nginx Proxy Odoo"
 
 #Copiamos el entrypoint.sh al container
