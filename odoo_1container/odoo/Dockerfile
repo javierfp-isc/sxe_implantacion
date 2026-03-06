@@ -1,9 +1,8 @@
-FROM debian:12
+FROM debian:13
 
 ENV TERM xterm
 ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-LABEL distribucion="Debian 12"
 LABEL descripcion="Imagen Odoo para prácticas"
 LABEL maintainer=javierfp@iessanclemente.net
 
