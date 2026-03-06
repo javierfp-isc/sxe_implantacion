@@ -1,9 +1,8 @@
-FROM debian:12
+FROM debian:13
 
 ENV TERM xterm
 ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-LABEL distribucion="Debian 12"
 LABEL descripcion="Imagen Odoo para prácticas"
 LABEL maintainer=javierfp@iessanclemente.net
 
@@ -31,3 +30,4 @@ RUN /bin/bash -c 'source /tmp/deploy.env;IFS=',';for command in $COMMANDS;do sh 
 
 #Comando para arrancar ssh y entrar en bucle de espera
 ENTRYPOINT ["/usr/bin/entrypoint.sh"]
+
