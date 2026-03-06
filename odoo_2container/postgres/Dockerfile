@@ -1,10 +1,9 @@
-FROM debian:12
+FROM debian:13
 
 ENV TERM xterm
 ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-LABEL distribucion="Debian 12"
-LABEL descripcion="Imagen Postgres para prácticas SXE"
+LABEL descripcion="Imagen Postgres"
 
 #Copiamos el deploy.env al container
 COPY deploy.env /tmp/deploy.env
