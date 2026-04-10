@@ -11,8 +11,8 @@ sed -i "s/OCBDIR/$OCBDIR/" /opt/odoo/odoo.conf
 sed -i "s/OCBDIR/$OCBDIR/" /etc/init.d/odoo.sh
 
 #Habilitar acceso desde host remotos a postgres
-[[ $(grep "^host all all 0.0.0.0/0 md5" /etc/postgresql/15/main/pg_hba.conf) ]] || echo "host all all 0.0.0.0/0 md5" >> /etc/postgresql/15/main/pg_hba.conf
-[[ $(grep "^listen_addresses='*'" /etc/postgresql/15/main/postgresql.conf) ]] || echo "listen_addresses='*'" >> /etc/postgresql/15/main/postgresql.conf
+[[ $(grep "^host all all 0.0.0.0/0 md5" /etc/postgresql/17/main/pg_hba.conf) ]] || echo "host all all 0.0.0.0/0 md5" >> /etc/postgresql/17/main/pg_hba.conf
+[[ $(grep "^listen_addresses='*'" /etc/postgresql/17/main/postgresql.conf) ]] || echo "listen_addresses='*'" >> /etc/postgresql/17/main/postgresql.conf
 
 #Creamos el archivo de log y cambiamos propietario
 mkdir -p $(dirname $LOGFILE)
