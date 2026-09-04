@@ -1,0 +1,36 @@
+services:
+  odoo:
+    image: odoo:19-dev
+    build:
+      context: .
+      dockerfile: Dockerfile.odoo
+      args:
+        ODOOUID: ${ODOOUID:-1000}
+        ODOOGID: ${ODOOGID:-1000}
+        ROOTPASS: ${ROOTPASS:-abc123.}
+    container_name: odoo
+    hostname: odoo
+    volumes:
+      - ~/odoo/src:/opt/odoo/src
+    user: odoo
+    ports:
+      - "8069:8069"
+  postgres:
+    image: odoo-postgres:17
+    build:
+      context: .
+      dockerfile: Dockerfile.postgres
+    container_name: odoo-postgres
+    hostname: odoo-postgres
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: abc123.
+    ports:
+      - "15432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

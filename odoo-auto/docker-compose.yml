@@ -1,0 +1,36 @@
+services:
+  odoo:
+    image: odoo:19-auto
+    build:
+      context: .
+      dockerfile: Dockerfile.odoo      
+    container_name: odoo-auto
+    hostname: odoo
+    command:
+      - /bin/sh
+      - -c
+      - |
+          chown -R odoo:odoo /opt/odoo/.local/share/Odoo
+          exec su -s /bin/sh odoo -c 'python3 /opt/odoo/src/OCB/odoo-bin -c /opt/odoo/odoo.conf'
+    volumes:
+      - ~/odoo/src:/opt/odoo/src
+      - odoo_fs:/opt/odoo/.local/share/Odoo/filestore
+    ports:
+      - "8069:8069"
+  postgres:
+    image: odoo-postgres:17
+    container_name: odoo-postgres-auto
+    hostname: odoo-postgres
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: abc123.
+    ports:
+      - "15432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+  odoo_fs:

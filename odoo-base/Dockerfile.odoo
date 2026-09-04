@@ -1,0 +1,57 @@
+FROM odoo-base:debian-13
+
+#Variables
+ARG ODOOUID
+ARG ODOOGID
+ARG ROOTPASS
+ARG ODOOVERSION=19.0
+
+#Instalar wkhtmltopdf
+RUN echo "deb [trusted=yes] http://deb.debian.org/debian bookworm main" \
+        > /etc/apt/sources.list.d/bookworm.list \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+        wget \
+        ca-certificates \
+        libjpeg62-turbo \
+        libxrender1 \
+        libfontconfig1 \
+        libx11-6 \
+        libxext6 \
+        libssl3t64 \
+        fonts-liberation \
+        xfonts-75dpi \
+        xfonts-base \
+    && wget -O /tmp/wkhtmltox.deb \
+        https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-3/wkhtmltox_0.12.6.1-3.bookworm_amd64.deb \
+    && dpkg --force-depends -i /tmp/wkhtmltox.deb \
+    && apt-get install -y --fix-broken \
+    && rm -f /tmp/wkhtmltox.deb \
+    && rm -f /etc/apt/sources.list.d/bookworm.list \
+    && apt-get update \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Descargar requirements directamente desde GitHub
+RUN wget -O /tmp/requirements.txt \
+    https://raw.githubusercontent.com/odoo/odoo/${ODOOVERSION}/requirements.txt
+
+# Instalar dependencias Python como root
+RUN pip3 install --break-system-packages \
+    -r /tmp/requirements.txt
+
+# Crear usuario odoo con UID y GID especificados en el entorno
+RUN groupadd --gid ${ODOOGID} odoo && \
+    useradd --uid ${ODOOUID} \
+            --gid ${ODOOGID} \
+            --create-home \
+            --home-dir /opt/odoo \
+            odoo
+
+# Establecer contraseña para el usuario root
+RUN echo "root:${ROOTPASS}" | chpasswd
+
+# Cambiar a usuario odoo
+USER odoo
+
+CMD ["bash", "-c", "while true; do sleep 3600; done"]

@@ -1,0 +1,7 @@
+FROM postgres:17
+
+RUN echo "listen_addresses = '*'" \
+    >> /usr/share/postgresql/postgresql.conf
+
+RUN echo "host all all 0.0.0.0/0 scram-sha-256" \
+    >> /usr/share/postgresql/pg_hba.conf
