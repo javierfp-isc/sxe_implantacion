@@ -11,7 +11,8 @@ services:
       - -c
       - |
           chown -R odoo:odoo /opt/odoo/.local/share/Odoo
-          exec su -s /bin/sh odoo -c 'python3 /opt/odoo/src/OCB/odoo-bin -c /opt/odoo/odoo.conf'
+          /etc/init.d/odoo.sh start
+          exec bash -c 'while true; do sleep 3600; done'
     volumes:
       - ~/odoo/src:/opt/odoo/src
       - odoo_fs:/opt/odoo/.local/share/Odoo/filestore

@@ -1,207 +1,323 @@
 #!/bin/sh
+
 ########################################################
-########## +-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+ +-+##########
-########## Technaureus Info Solutions Pvt Ltd ##########
-########## +-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+ +-+##########
+# Odoo init script - Docker/Debian
 ########################################################
-### BEGIN INIT INFO
-# Provides: odoo-server
-# Required-Start: $remote_fs $syslog
-# Required-Stop: $remote_fs $syslog
-# Should-Start: $network
-# Should-Stop: $network
-# Default-Start: 2 3 4 5
-# Default-Stop: 0 1 6
-# Short-Name: Odoo start/stop script for Ubuntu
-# Author: Technaureus Info Solutions Pvt Ltd.
-# Website: https://technaureus.com
-# Description: Using this script, we can start/stop/restart
-# or check status of odoo server.
-#
-# Copyright(c)-2016-Present Technaureus Info Solutions Pvt. Ltd.
-# All Rights Reserved.
-### END INIT INFO
-PATH=/bin:/sbin:/usr/bin
-NAME=odoo
-DESC=ODOO-SERVER
-# Specify the daemon path for Odoo server.
-# (Default for ODOO >=10: /opt/odoo/odoo-bin)
-# (Default for ODOO <=9: /opt/odoo/openerp-server)
-DAEMON=/opt/odoo/src/OCB/odoo-bin
-CONFIGFILE="/opt/odoo/odoo.conf" # Specify the Odoo Configuration file path.
 
-USER=odoo # Specify the user name (Default: odoo).
+PATH=/bin:/sbin:/usr/bin:/usr/sbin
 
-PIDFILE=/var/run/$NAME.pid # pidfile
+NAME="odoo"
+DESC="ODOO-SERVER"
 
-# Additional options that are passed to the Daemon.
-DAEMON_ARGS="-c $CONFIGFILE"
+DAEMON="/opt/odoo/src/OCB/odoo-bin"
+CONFIGFILE="/opt/odoo/odoo.conf"
 
-display() {
-RED=$(tput setaf 1)
-GREEN=$(tput setaf 2)
-NORMAL=$(tput sgr0)
-col=$(tput cols)
-case "$#" in
-1)
-if [ $1 -eq 0 ] ; then
-printf '%s%*s%s' "$GREEN" $col "[ OK ] " "$NORMAL"
-else
-printf '%s%*s%s' "$RED" $col "[FAIL] " "$NORMAL"
+USER="odoo"
+PIDFILE="/var/run/${NAME}.pid"
+
+DAEMON_ARGS="-c ${CONFIGFILE}"
+
+
+# ------------------------------------------------------
+# Comprobaciones iniciales
+# ------------------------------------------------------
+
+if [ ! -x "$DAEMON" ]; then
+    echo "ERROR: Odoo daemon no existe o no es ejecutable:"
+    echo "       $DAEMON"
+    exit 1
 fi
-;;
-2)
-if [ $1 -eq 0 ] ; then
-echo "$GREEN* $2$NORMAL"
-else
-echo "$RED* $2$NORMAL"
+
+if [ ! -r "$CONFIGFILE" ]; then
+    echo "ERROR: Odoo config no existe o no es legible:"
+    echo "       $CONFIGFILE"
+    exit 1
 fi
-;;
-*)
-echo "Invalid arguments"
-exit 1
-;;
-esac
+
+
+# ------------------------------------------------------
+# Obtener PIDs de Odoo
+# ------------------------------------------------------
+
+get_pids()
+{
+    ps -Ao pid=,args= |
+        grep -F -- "$DAEMON" |
+        grep -v "grep" |
+        awk '{print $1}'
 }
 
-if ! [ -x $DAEMON ] ; then
-echo "Error in ODOO Daemon file: $DAEMON" 
-echo "Possible error(s):"
-display 1 "Daemon File doesn't exists." 
-display 1 "Daemon File is not set to executable." 
-exit 0;
-fi
-if ! [ -r $CONFIGFILE ] ; then
-echo "Error in ODOO Config file: $CONFIGFILE" 
-echo "Possible error(s):" 
-display 1 "Config File doesn't exists." 
-display 1 "Config File is not set to readable." 
-exit 0;
-fi
-if ! [ -w $PIDFILE ] ; then
-touch $PIDFILE || echo "Permission issue: $PIDFILE" && exit 1
-chown $USER: $PIDFILE
-fi
 
-# Function that starts the daemon/service
-do_start() {
-echo $1
-check_status
-procs=$?
-if [ $procs -eq 0 ] ; then
-start-stop-daemon --start --quiet --pidfile ${PIDFILE} \
---chuid ${USER} --background --make-pidfile \
---exec ${DAEMON} -- ${DAEMON_ARGS}
-return $?
-else
-detailed_info "${DESC} is already Running !!!" $procs
-exit 1
-fi
+# ------------------------------------------------------
+# Comprobar estado
+# ------------------------------------------------------
+
+check_status()
+{
+    PIDS=$(get_pids)
+
+    if [ -z "$PIDS" ]; then
+        return 0
+    fi
+
+    return 1
 }
 
-# Function that stops the daemon/service
-do_stop() {
-echo $1
-check_status
-if [ $? -ne 0 ] ; then
-start-stop-daemon --stop --quiet --pidfile ${PIDFILE}
-return $?
-else
-display 0 "${DESC} is already Stopped. You may try: $0 force-restart"
-exit 1
-fi
+
+# ------------------------------------------------------
+# Iniciar Odoo
+# ------------------------------------------------------
+
+do_start()
+{
+    echo "Starting ${DESC}..."
+
+    PIDS=$(get_pids)
+
+    if [ -n "$PIDS" ]; then
+        echo "ERROR: ${DESC} ya está ejecutándose."
+        echo "PID(s): $PIDS"
+        return 1
+    fi
+
+    # Aseguramos que /var/run existe
+    mkdir -p "$(dirname "$PIDFILE")"
+
+    # Eliminar PID antiguo si existe
+    if [ -f "$PIDFILE" ]; then
+        rm -f "$PIDFILE"
+    fi
+
+    start-stop-daemon \
+        --start \
+        --quiet \
+        --pidfile "$PIDFILE" \
+        --chuid "$USER" \
+        --background \
+        --make-pidfile \
+        --exec "$DAEMON" \
+        -- $DAEMON_ARGS
+
+    RESULT=$?
+
+    if [ "$RESULT" -ne 0 ]; then
+        echo "ERROR: no se pudo iniciar ${DESC}."
+        return "$RESULT"
+    fi
+
+    # Dar un pequeño margen para que arranque
+    sleep 1
+
+    PIDS=$(get_pids)
+
+    if [ -n "$PIDS" ]; then
+        echo "${DESC} iniciado correctamente."
+        echo "PID(s): $PIDS"
+
+        if [ -f "$PIDFILE" ]; then
+            echo "PIDFILE: $PIDFILE"
+        fi
+
+        return 0
+    fi
+
+    echo "ERROR: ${DESC} no aparece ejecutándose después del arranque."
+    return 1
 }
 
-get_pids(){
-pids=$(ps -Ao pid,cmd | grep $DAEMON | grep -v grep | awk '{print $1}')
-return $pids
+
+# ------------------------------------------------------
+# Detener Odoo
+# ------------------------------------------------------
+
+do_stop()
+{
+    echo "Stopping ${DESC}..."
+
+    PIDS=$(get_pids)
+
+    if [ -z "$PIDS" ]; then
+        echo "${DESC} ya está detenido."
+        rm -f "$PIDFILE"
+        return 0
+    fi
+
+    start-stop-daemon \
+        --stop \
+        --quiet \
+        --pidfile "$PIDFILE"
+
+    RESULT=$?
+
+    sleep 1
+
+    PIDS=$(get_pids)
+
+    if [ -n "$PIDS" ]; then
+        echo "ERROR: ${DESC} sigue ejecutándose."
+        echo "PID(s): $PIDS"
+        return 1
+    fi
+
+    rm -f "$PIDFILE"
+
+    echo "${DESC} detenido correctamente."
+
+    return "$RESULT"
 }
 
-# Function that checks the status of daemon/service
-check_status() {
-echo $1
-# start-stop-daemon --status --pidfile ${PIDFILE}
-status=$(ps -Ao pid,cmd | grep $DAEMON | grep -v grep | awk '{print $1}' | wc -l)
-return $status
+
+# ------------------------------------------------------
+# Detención forzada
+# ------------------------------------------------------
+
+force_stop()
+{
+    echo "Forcely stopping ${DESC}..."
+
+    PIDS=$(get_pids)
+
+    if [ -z "$PIDS" ]; then
+        echo "${DESC} ya está detenido."
+        rm -f "$PIDFILE"
+        return 0
+    fi
+
+    echo "Matando PID(s): $PIDS"
+
+    kill -9 $PIDS 2>/dev/null
+
+    sleep 1
+
+    PIDS=$(get_pids)
+
+    if [ -n "$PIDS" ]; then
+        echo "ERROR: no se pudieron detener todos los procesos."
+        echo "PID(s): $PIDS"
+        return 1
+    fi
+
+    rm -f "$PIDFILE"
+
+    echo "${DESC} detenido."
+
+    return 0
 }
 
-# Function that forcely-stops all running daemon/service
-force_stop() {
-echo $1
-pids=$(ps -Ao pid,cmd | grep $DAEMON | grep -v grep | awk '{print $1}')
-if [ ! -z "$pids" ] ; then
-kill -9 $pids
-fi
-return $?
+
+# ------------------------------------------------------
+# Información detallada
+# ------------------------------------------------------
+
+show_status()
+{
+    PIDS=$(get_pids)
+
+    if [ -z "$PIDS" ]; then
+        echo "${DESC}: STOPPED"
+        return 3
+    fi
+
+    echo "${DESC}: RUNNING"
+    echo
+    echo "Process ID(s):"
+    echo "$PIDS"
+    echo
+
+    for PID in $PIDS
+    do
+        echo "PID: $PID"
+        ps -p "$PID" -o pid,ppid,user,etime,args=
+        echo
+    done
+
+    if [ -f "$PIDFILE" ]; then
+        echo "PIDFILE: $PIDFILE"
+        echo "PIDFILE contents: $(cat "$PIDFILE")"
+    fi
+
+    return 0
 }
 
-detailed_info() {
-procs=$2
-if [ $procs -eq 1 ] ; then
-display 0 "$1"
-echo "FINE, ${procs} ${DESC} is Running."
-echo "Details :"
-pid=`cat $PIDFILE`
-echo "Start Time : $(ps -p $pid -wo lstart=)"
-echo "Total UpTime: $(ps -p $pid -wo etime=)"
-echo "Process ID : ${pid}"
-echo ""
-else
-display 1 "WARNING !!!"
-display 1 "${procs} ${DESC}s are Running !!!"
-pids=$(ps -Ao pid,cmd | grep $DAEMON | grep -v grep | awk '{print $1}')
-echo "Details :"
-echo -n "Process IDs : "
-echo $pids
-# echo $pids | tr ' ' ,
-echo "In order to fix, Hit command: $0 force-restart"
-echo ""
-fi
+
+# ------------------------------------------------------
+# Reinicio
+# ------------------------------------------------------
+
+do_restart()
+{
+    echo "Restarting ${DESC}..."
+
+    do_stop
+
+    RESULT=$?
+
+    if [ "$RESULT" -ne 0 ]; then
+        echo "ERROR: no se pudo detener ${DESC}."
+        return "$RESULT"
+    fi
+
+    sleep 1
+
+    do_start
+
+    return $?
 }
+
+
+# ------------------------------------------------------
+# Main
+# ------------------------------------------------------
+
 case "$1" in
-start)
-do_start "Starting ${DESC} "
-display $?
-;;
-stop)
-do_stop "Stopping ${DESC} "
-display $?
-;;
-status)
-check_status "Current Status of ${DESC}:"
-procs=$?
-if [ $procs -eq 1 ] ; then
-detailed_info "RUNNING" $procs
-elif [ $procs -eq 0 ] ; then
-display 1 "STOPPED"
-else
-detailed_info "" $procs
-fi
-;;
-restart|reload)
-do_stop "Stopping ${DESC} "
-display $?
-sleep 1
-do_start "Starting ${DESC} "
-display $?
-;;
-force-restart)
-force_stop "Forcely Restarting ${DESC} "
-sleep 1
-do_start "Starting ${DESC} "
-display $?
-;;
-force-stop)
-force_stop "Forcely Stopping all running ${DESC} "
-display $?
-;;
-cs)
-ps -Ao pid,cmd | grep $DAEMON | grep -v grep | awk '{print $1}' | wc -l
-;;
-*)
-display 1 "Usage: $0 {start|stop|restart/reload|status|force-restart|force-stop}"
-exit 1
-;;
-esac
 
-exit 0
+    start)
+        do_start
+        exit $?
+        ;;
+
+    stop)
+        do_stop
+        exit $?
+        ;;
+
+    restart|reload)
+        do_restart
+        exit $?
+        ;;
+
+    force-restart)
+        force_stop
+        sleep 1
+        do_start
+        exit $?
+        ;;
+
+    force-stop)
+        force_stop
+        exit $?
+        ;;
+
+    status)
+        show_status
+        exit $?
+        ;;
+
+    cs)
+        PIDS=$(get_pids)
+
+        if [ -z "$PIDS" ]; then
+            echo "0"
+        else
+            echo "$PIDS" | wc -w
+        fi
+
+        exit 0
+        ;;
+
+    *)
+        echo "Usage: $0 {start|stop|restart|reload|status|force-restart|force-stop|cs}"
+        exit 1
+        ;;
+
+esac
