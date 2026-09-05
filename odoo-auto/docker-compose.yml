@@ -18,6 +18,7 @@ services:
       - odoo_fs:/opt/odoo/.local/share/Odoo/filestore
     ports:
       - "8069:8069"
+      - "8072:8072"
   postgres:
     image: odoo-postgres:17
     container_name: odoo-postgres-auto

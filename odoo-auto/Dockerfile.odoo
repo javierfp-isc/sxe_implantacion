@@ -8,6 +8,4 @@ USER root
 RUN chmod +x /etc/init.d/odoo.sh
 RUN chown -R odoo:odoo /opt/odoo/odoo.conf
 
-USER odoo
-
 CMD ["python3", "/opt/odoo/src/OCB/odoo-bin", "-c", "/opt/odoo/odoo.conf"]
