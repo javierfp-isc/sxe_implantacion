@@ -1,7 +1,7 @@
 services:
   odoo-1:
     image: odoo:19-auto     
-    container_name: odoo-multi-1
+    container_name: odoo-proxy-1
     hostname: odoo-1
     command:
       - /bin/sh
@@ -16,7 +16,7 @@ services:
 
   odoo-2:
     image: odoo:19-auto     
-    container_name: odoo-multi-2
+    container_name: odoo-proxy-2
     hostname: odoo-2
     command:
       - /bin/sh
@@ -31,7 +31,7 @@ services:
 
   nginx:
     image: nginx:alpine
-    container_name: odoo-nginx-multi
+    container_name: odoo-nginx-proxy
     ports:
       - "80:80"
     volumes:
@@ -41,7 +41,7 @@ services:
       - odoo-2
   postgres:
     image: odoo-postgres:17
-    container_name: odoo-postgres-multi
+    container_name: odoo-postgres-proxy
     hostname: odoo-postgres
     environment:
       POSTGRES_DB: postgres
