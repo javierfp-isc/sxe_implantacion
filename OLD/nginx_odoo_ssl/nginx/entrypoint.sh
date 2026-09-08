@@ -1,8 +1,0 @@
-#!/bin/bash
-
-#Arranca nginx 
-service nginx restart
-
-#Uso exec para lanzar un proceso independiente de bucle infinito
-exec bash -c "while true;do sleep 1000;done"
-
