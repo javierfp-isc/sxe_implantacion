@@ -46,6 +46,7 @@ RUN groupadd --gid ${ODOOGID} odoo && \
             --gid ${ODOOGID} \
             --create-home \
             --home-dir /opt/odoo \
+            --shell /bin/bash \
             odoo
 
 # Establecer contraseña para el usuario root
