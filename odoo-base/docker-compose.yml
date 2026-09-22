@@ -5,14 +5,14 @@ services:
       context: .
       dockerfile: Dockerfile.odoo
       args:
-        ODOOUID: ${ODOOUID:-1000}
-        ODOOGID: ${ODOOGID:-1000}
+        #ODOOUID: ${ODOOUID:-1000}
+        #ODOOGID: ${ODOOGID:-1000}
         ROOTPASS: ${ROOTPASS:-abc123.}
     container_name: odoo
     hostname: odoo
     volumes:
       - ~/odoo/src:/opt/odoo/src
-    user: odoo
+    #user: odoo
     ports:
       - "8069:8069"
   postgres:

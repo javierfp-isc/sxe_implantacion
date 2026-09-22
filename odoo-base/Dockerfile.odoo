@@ -1,8 +1,8 @@
 FROM odoo-base:debian-13
 
 #Variables
-ARG ODOOUID
-ARG ODOOGID
+# ARG ODOOUID
+# ARG ODOOGID
 ARG ROOTPASS
 ARG ODOOVERSION=19.0
 
@@ -41,9 +41,17 @@ RUN pip3 install --break-system-packages \
     -r /tmp/requirements.txt
 
 # Crear usuario odoo con UID y GID especificados en el entorno
-RUN groupadd --gid ${ODOOGID} odoo && \
-    useradd --uid ${ODOOUID} \
-            --gid ${ODOOGID} \
+# RUN groupadd --gid ${ODOOGID} odoo && \
+#     useradd --uid ${ODOOUID} \
+#             --gid ${ODOOGID} \
+#             --create-home \
+#             --home-dir /opt/odoo \
+#             --shell /bin/bash \
+#             odoo
+
+RUN groupadd --system odoo && \
+    useradd --system \
+            --gid odoo \
             --create-home \
             --home-dir /opt/odoo \
             --shell /bin/bash \
@@ -53,6 +61,6 @@ RUN groupadd --gid ${ODOOGID} odoo && \
 RUN echo "root:${ROOTPASS}" | chpasswd
 
 # Cambiar a usuario odoo
-USER odoo
+#USER odoo
 
 CMD ["bash", "-c", "while true; do sleep 3600; done"]
