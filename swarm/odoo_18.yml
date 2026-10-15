@@ -1,0 +1,63 @@
+version: "3.8"
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: odoo
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: odoo
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data
+    networks:
+      - odoo-net
+    deploy:
+      replicas: 1
+
+  odoo:
+    image: odoo:18
+    depends_on:
+      - db
+    environment:
+      - HOST=db
+      - USER=odoo
+      - PASSWORD=odoo
+    volumes:
+      - odoo-web-data:/var/lib/odoo
+    ports:
+      - "8069:8069"
+    networks:
+      - odoo-net
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+         - node.role == worker
+      restart_policy:
+        condition: on-failure
+    command: >
+      /usr/bin/python3 /usr/bin/odoo
+      --db_host=db
+      --db_port=5432
+      --db_user=odoo
+      --db_password=odoo
+      --database=odoo
+      --init=base
+      
+volumes:
+  odoo-db-data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /mnt/glusterfs/odoo/db
+      o: bind
+
+  odoo-web-data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /mnt/glusterfs/odoo/web
+      o: bind
+
+networks:
+  odoo-net:
+    driver: overlay

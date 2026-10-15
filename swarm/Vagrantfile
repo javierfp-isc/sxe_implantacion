@@ -1,0 +1,29 @@
+VAGRANTFILE_API_VERSION = "2"
+NODES = [
+  { :name => "swarm-mgr",   :ip => "192.168.56.10" },
+  { :name => "swarm-node1", :ip => "192.168.56.11" },
+  { :name => "swarm-node2", :ip => "192.168.56.12" }
+]
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "ubuntu/jammy64"
+  NODES.each do |node|
+    config.vm.define node[:name] do |node_config|
+      node_config.vm.hostname = node[:name]      
+      node_config.vm.network "private_network", ip: node[:ip]
+      node_config.vm.provider "virtualbox" do |vb|
+        vb.name = node[:name]
+        vb.memory = 3096
+        vb.cpus = 1
+      end
+      node_config.vm.provision "shell", inline: <<-SHELL
+        apt-get update
+        apt-get install -y apt-transport-https ca-certificates curl software-properties-common gnupg
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+        echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu jammy stable" > /etc/apt/sources.list.d/docker.list
+        apt-get update
+        apt-get install -y docker-ce docker-ce-cli containerd.io
+        usermod -aG docker vagrant
+      SHELL
+    end
+  end
+end
