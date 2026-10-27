@@ -1,28 +1,44 @@
 services:
 #Service odoo toma el Dockerfile de ./build/odoo
  odoo:
-  build: ./odoo
+  image: odoo:19-auto
   hostname: odoo
-  env_file: 
-  - "odoo/odoo.env"
+  container_name: odoo-auditoria
+  command:
+    - /bin/sh
+    - -c
+    - |
+        chown -R odoo:odoo /opt/odoo/.local/share/Odoo
+        /etc/init.d/odoo.sh start
+        exec bash -c 'while true; do sleep 3600; done'
   ports:
   - "8069:8069"
-  #Mapeo del directorio de la MV en el container
   volumes:
   - ~/odoo/src:/opt/odoo/src
-  networks:
-   auditoria_odoo:
-    ipv4_address: 192.168.204.101 
+  - odoo_fs:/opt/odoo/.local/share/Odoo/filestore
+ postgres:
+   image: odoo-postgres:17
+   hostname: postgres
+   container_name: postgres-auditoria
+   environment:
+     POSTGRES_DB: postgres
+     POSTGRES_USER: odoo
+     POSTGRES_PASSWORD: abc123.
+   volumes:
+     - postgres_data:/var/lib/postgresql/data
  auditor:
-  build: ./auditor
+  image: auditor:debian-13
+  build:
+    context: .
+    dockerfile: Dockerfile.auditor
   hostname: auditor
-  networks:
-   auditoria_odoo:
-    ipv4_address: 192.168.204.100
-networks:
-  auditoria_odoo:
-    driver: bridge
-    ipam:
-     config:
-       - subnet: 192.168.204.0/24
+  container_name: auditor-auditoria
+  command:
+    - /bin/sh
+    - -c
+    - |
+        exec bash -c 'while true; do sleep 3600; done'
+volumes:
+  postgres_data:
+  odoo_fs:
    
